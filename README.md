@@ -1,10 +1,10 @@
-# Messenger App
+# Zapp App
 
 Clone a messenger app built with Flutter and Dart.
 
 ## Table of Contents
 
-- [Messenger App](#messenger-app)
+- [Zapp App](#zapp-app)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
   - [Features](#features)
@@ -38,13 +38,13 @@ Before you begin, ensure you have Flutter and Dart installed on your machine. If
 1. Clone the repository:
 
 ```bash
-   git clone https://github.com/luan-thnh/messager-app.git
+   git clone https://github.com/luan-thnh/zapp-app.git
 ```
 
 2. Navigate to the project directory:
 
 ```bash
-   cd flutter-messaging-app
+   cd zapp-app
 ```
 
 3. Install dependencies:

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:messenger/constants/image_urls.dart';
 import 'package:messenger/screens/home_screen.dart';
@@ -15,62 +13,69 @@ import 'package:provider/provider.dart';
 final _formKey = GlobalKey<FormState>();
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  late Size mq;
+  late TextEditingController _phoneNumberOrEmailController;
+  late TextEditingController _passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    _phoneNumberOrEmailController = TextEditingController();
+    _passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _phoneNumberOrEmailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void handleSignInWithGoogle() async {
+    DialogsUtil.showSnackBar(context, 'Thanh cong', true);
+    // final authService = Provider.of<AuthService>(context, listen: false);
+    // DialogsUtil.showProgressBar(context);
+    //
+    // try {
+    //   authService.signInWithGoogle().then((user) {
+    //     Navigator.pop(context);
+    //
+    //     // if (user != null) {
+    //     //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+    //     // }
+    //   });
+    // } catch (e) {
+    //   print("Google Sign-In Error: $e");
+    // }
+  }
+
+  void handleSignInWithEmailPassword() async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+    DialogsUtil.showProgressBar(context);
+
+    try {
+      await authService.signInWithEmailAndPassword(_phoneNumberOrEmailController.text.trim(), _passwordController.text.trim()).then((user) {
+        Navigator.pop(context);
+
+        if (user != null) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+        }
+      });
+    } catch (e) {
+      print("Email/Password Sign-In Error: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    late Size mq = MediaQuery.of(context).size;
-
-    final _phoneNumberOrEmailController = TextEditingController();
-    final _passwordController = TextEditingController();
-
-    @override
-    void dispose() {
-      super.dispose();
-      _phoneNumberOrEmailController.dispose();
-      _passwordController.dispose();
-    }
-
-    void handleSignInWithGoogle() async {
-      final authService = Provider.of<AuthService>(context, listen: false);
-      DialogsUtil.showProgressBar(context);
-
-      try {
-        authService.signInWithGoogle().then((user) {
-          Navigator.pop(context);
-
-          if (user != null) {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-          }
-        });
-      } catch (e) {
-        // Handle the specific exception, e.g., print or show an error message.
-        print("Google Sign-In Error: $e");
-      }
-    }
-
-    void handleSignInWithEmailPassword() async {
-      final authService = Provider.of<AuthService>(context, listen: false);
-      DialogsUtil.showProgressBar(context);
-
-      try {
-        await authService.signInWithEmailAndPassword(_phoneNumberOrEmailController.text.trim(), _passwordController.text.trim()).then((user) {
-          Navigator.pop(context);
-
-          if (user != null) {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-          }
-        });
-      } catch (e) {
-        // Handle the specific exception, e.g., print or show an error message.
-        print("Google Sign-In Error: $e");
-      }
-    }
+    mq = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -112,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         InputControlWidget(
                           controller: _passwordController,
                           hintText: 'Password',
-                          obscureText: false,
+                          obscureText: true,
                           borderColor: Colors.transparent,
                           validator: ValidateFieldUtil.validatePassword,
                         ),
