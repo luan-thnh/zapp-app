@@ -39,21 +39,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void handleSignInWithGoogle() async {
-    DialogsUtil.showSnackBar(context, 'Thanh cong', true);
-    // final authService = Provider.of<AuthService>(context, listen: false);
-    // DialogsUtil.showProgressBar(context);
-    //
-    // try {
-    //   authService.signInWithGoogle().then((user) {
-    //     Navigator.pop(context);
-    //
-    //     // if (user != null) {
-    //     //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-    //     // }
-    //   });
-    // } catch (e) {
-    //   print("Google Sign-In Error: $e");
-    // }
+    final authService = Provider.of<AuthService>(context, listen: false);
+    DialogsUtil.showProgressBar(context);
+
+    try {
+      authService.signInWithGoogle().then((user) {
+        Navigator.pop(context);
+
+        if (user != null) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+        }
+      });
+    } catch (e) {
+      print("Google Sign-In Error: $e");
+    }
   }
 
   void handleSignInWithEmailPassword() async {
