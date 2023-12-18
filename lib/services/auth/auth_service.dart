@@ -1,6 +1,7 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService extends ChangeNotifier {
@@ -9,9 +10,11 @@ class AuthService extends ChangeNotifier {
   // final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // sign in user with email and password
-  Future<UserCredential> signInWithEmailAndPassword(String email, String password) async {
+  Future<UserCredential> signInWithEmailAndPassword(
+      String email, String password) async {
     try {
-      UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password);
 
       // // add a new document for the user in users collection if it doesn't already exists
       // _firestore.collection('users').doc(userCredential.user!.uid).set({'uid': userCredential.user!.uid, 'email': email}, SetOptions(merge: true));
@@ -26,9 +29,11 @@ class AuthService extends ChangeNotifier {
   }
 
   // create a new user by email and password
-  Future<UserCredential> signUpWithEmailAndPassword(BuildContext context, String email, String password) async {
+  Future<UserCredential> signUpWithEmailAndPassword(
+      String email, String password) async {
     try {
-      UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
 
       // // after creating the user
       // _firestore.collection('users').doc(userCredential.user!.uid).set({'uid': userCredential.user!.uid, 'email': email});
@@ -65,7 +70,8 @@ class AuthService extends ChangeNotifier {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
@@ -77,6 +83,26 @@ class AuthService extends ChangeNotifier {
       return await _firebaseAuth.signInWithCredential(credential);
     }
 
+    // catch any errors
+    on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
+    }
+  }
+
+  // sign in user with Facebook
+  Future<UserCredential> signInWithFacebook() async {
+    try {
+      // Trigger the sign-in flow
+      final LoginResult loginResult = await FacebookAuth.instance
+          .login(permissions: ['email', 'public_profile']);
+
+      // Create a credential from the access token
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+      // Once signed in, return the UserCredential
+      return await _firebaseAuth.signInWithCredential(facebookAuthCredential);
+    }
     // catch any errors
     on FirebaseAuthException catch (e) {
       throw Exception(e.code);

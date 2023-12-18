@@ -28,12 +28,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         Navigator.pop(context);
 
         if (user != null) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => const HomeScreen()));
         }
       });
     } catch (e) {
       // Handle the specific exception, e.g., print or show an error message.
       print("Google Sign-In Error: $e");
+    }
+  }
+
+  void _handleSignInWithFacebook() async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+    DialogsUtil.showProgressBar(context);
+
+    try {
+      authService.signInWithFacebook().then((user) {
+        Navigator.pop(context);
+
+        if (user != null) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+        }
+      });
+    } catch (e) {
+      print("Facebook Sign-In Error: $e");
     }
   }
 
@@ -50,11 +69,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               children: [
                 const Image(image: AssetImage(ImageUrls.zappLogo), width: 125),
                 const SizedBox(height: 28),
-                Text('Welcome to ', textAlign: TextAlign.center, style: TypographyTheme.heading1()),
+                Text('Welcome to ',
+                    textAlign: TextAlign.center,
+                    style: TypographyTheme.heading1()),
                 GradientText(
                   'Zapp',
                   style: TypographyTheme.headingBig(),
-                  gradient: const LinearGradient(colors: [ColorsTheme.purple, ColorsTheme.pink]),
+                  gradient: const LinearGradient(
+                      colors: [ColorsTheme.purple, ColorsTheme.pink]),
                 ),
                 const SizedBox(height: 14),
                 Text(
@@ -81,6 +103,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   bgColor: ColorsTheme.light,
                   textColor: ColorsTheme.black,
+                  onPressed: _handleSignInWithFacebook,
                 ),
                 const SizedBox(height: 16),
                 Stack(
@@ -102,7 +125,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ],
                 ),
                 const SizedBox(height: 16),
-                const ButtonWidget(disable: false, text: 'Create an Account'),
+                ButtonWidget(
+                  disable: false,
+                  text: 'Create an Account',
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/register');
+                  },
+                ),
                 const SizedBox(height: 42),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

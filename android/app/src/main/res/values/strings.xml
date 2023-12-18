@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="" ?>
+<resources>
+    <string name="app_name">Zapp</string>
+    <string name="facebook_app_id">845703014012568</string>
+    <string name="fb_login_protocol_scheme">fb845703014012568</string>
+    <string name="facebook_client_token">967428e7b1aa2249408d1a577e661689</string>
+
+</resources>
