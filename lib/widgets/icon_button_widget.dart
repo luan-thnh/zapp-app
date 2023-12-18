@@ -15,6 +15,7 @@ class IconButtonWidget extends StatelessWidget {
       ),
       child: IconButton(
         icon: icon,
+        alignment: Alignment.center,
         onPressed: onPressed,
       ),
     );

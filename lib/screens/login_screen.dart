@@ -47,7 +47,9 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pop(context);
 
         if (user != null) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+          print('UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU');
+          print(user);
+          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
         }
       });
     } catch (e) {
