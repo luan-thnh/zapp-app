@@ -38,7 +38,7 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
-    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+
     return AppBar(
       flexibleSpace: StreamBuilder(
         stream: APIs.fireStore.collection('users').doc(authService.user.uid).snapshots(),
