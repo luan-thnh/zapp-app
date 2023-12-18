@@ -4,10 +4,8 @@ class ValidateFieldUtil {
       return 'Phone number or email must be required';
     }
 
-    RegExp emailRegex = RegExp(
-        r'^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$');
-    RegExp phoneNumberRegex =
-        RegExp(r'^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$');
+    RegExp emailRegex = RegExp(r'^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$');
+    RegExp phoneNumberRegex = RegExp(r'^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$');
 
     if (emailRegex.hasMatch(value!.trim())) {
       return null;

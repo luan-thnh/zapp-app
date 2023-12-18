@@ -47,30 +47,11 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pop(context);
 
         if (user != null) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
         }
       });
     } catch (e) {
       print("Google Sign-In Error: $e");
-    }
-  }
-
-  void handleSignInWithFacebook() async {
-    final authService = Provider.of<AuthService>(context, listen: false);
-    DialogsUtil.showProgressBar(context);
-
-    try {
-      authService.signInWithFacebook().then((user) {
-        Navigator.pop(context);
-
-        if (user != null) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-        }
-      });
-    } catch (e) {
-      print("Facebook Sign-In Error: $e");
     }
   }
 
@@ -79,15 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
     DialogsUtil.showProgressBar(context);
 
     try {
-      await authService
-          .signInWithEmailAndPassword(_phoneNumberOrEmailController.text.trim(),
-              _passwordController.text.trim())
-          .then((user) {
+      await authService.signInWithEmailAndPassword(_phoneNumberOrEmailController.text.trim(), _passwordController.text.trim()).then((user) {
         Navigator.pop(context);
 
         if (user != null) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
         }
       });
     } catch (e) {
@@ -134,8 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: _phoneNumberOrEmailController,
                           obscureText: false,
                           hintText: 'Phone Number or Email',
-                          validator:
-                              ValidateFieldUtil.validatePhoneNumberOrEmail,
+                          validator: ValidateFieldUtil.validatePhoneNumberOrEmail,
                         ),
                         InputControlWidget(
                           controller: _passwordController,
@@ -147,9 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 16),
                         GestureDetector(
                           onTap: () {},
-                          child: Text('Forgot password?',
-                              style: TypographyTheme.heading5(
-                                  color: ColorsTheme.primary)),
+                          child: Text('Forgot password?', style: TypographyTheme.heading5(color: ColorsTheme.primary)),
                         ),
                         const SizedBox(height: 24),
                         ButtonWidget(
@@ -168,13 +142,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             Container(height: 1, color: Colors.grey.shade300),
                             Positioned(
                               child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
                                 decoration: const BoxDecoration(
                                   color: ColorsTheme.white,
                                 ),
-                                child: const Text('Or',
-                                    style: TextStyle(color: ColorsTheme.black)),
+                                child: const Text('Or', style: TextStyle(color: ColorsTheme.black)),
                               ),
                             ),
                           ],
@@ -195,7 +167,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           icon: Image.asset(ImageUrls.facebookIcon, width: 24),
                           bgColor: ColorsTheme.light,
                           textColor: ColorsTheme.black,
-                          onPressed: handleSignInWithFacebook,
                         ),
                         const SizedBox(height: 16),
                       ],
