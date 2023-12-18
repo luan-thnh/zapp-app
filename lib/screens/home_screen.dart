@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:messenger/constants/image_urls.dart';
+import 'package:messenger/layouts/appbar_layout.dart';
 import 'package:messenger/screens/onboarding_screen.dart';
 import 'package:messenger/services/auth/auth_service.dart';
 import 'package:messenger/theme/colors_theme.dart';
@@ -34,6 +36,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const AppBarLayout(
+        avatarUrl: ImageUrls.avatarDefault,
+        iconFirst: Icon(
+          Icons.camera_alt_rounded,
+          color: ColorsTheme.black,
+        ),
+        title: 'Chat',
+      ),
       body: Container(
         padding: const EdgeInsets.all(32),
         alignment: Alignment.center,
