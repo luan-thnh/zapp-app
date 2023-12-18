@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:messenger/api/apis.dart';
 import 'package:messenger/models/chat_user_model.dart';
@@ -66,7 +67,7 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-// sign in user with Google
+  // sign in user with Google
   Future<UserCredential> signInWithGoogle() async {
     try {
       // Trigger the authentication flow
@@ -97,8 +98,34 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+  // sign in user with Google
+  Future<UserCredential> signInWithFacebook() async {
+    try {
+      // Trigger the authentication flow
+      final LoginResult facebookUser = await FacebookAuth.instance.login();
+
+      // Create a credential from the access token
+      final OAuthCredential credential = FacebookAuthProvider.credential(facebookUser.accessToken!.token);
+
+      // Once signed in, return the UserCredential
+      UserCredential userCredential = await APIs.firebaseAuth.signInWithCredential(credential);
+
+      ChatUserModel user = ChatUserModel.fromUserCredential(userCredential.user);
+
+      APIs.fireStore.collection('users').doc(userCredential.user!.uid).set(user.toJson(), SetOptions(merge: true));
+
+      return userCredential;
+    }
+
+    // catch any errors
+    on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
+    }
+  }
+
   // sign out user
   Future<void> signOut() async {
+    await FacebookAuth.instance.logOut();
     return await APIs.firebaseAuth.signOut();
   }
 }

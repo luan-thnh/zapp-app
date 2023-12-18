@@ -37,6 +37,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     }
   }
 
+  void _handleSignInWithFacebook() async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+    DialogsUtil.showProgressBar(context);
+
+    try {
+      authService.signInWithFacebook().then((user) {
+        Navigator.pop(context);
+
+        if (user != null) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+        }
+      });
+    } catch (e) {
+      // Handle the specific exception, e.g., print or show an error message.
+      print("Google Sign-In Error: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,6 +99,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   bgColor: ColorsTheme.light,
                   textColor: ColorsTheme.black,
+                  onPressed: _handleSignInWithFacebook,
                 ),
                 const SizedBox(height: 16),
                 Stack(

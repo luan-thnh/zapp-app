@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void handleSignInWithGoogle() async {
+  void _handleSignInWithGoogle() async {
     final authService = Provider.of<AuthService>(context, listen: false);
     DialogsUtil.showProgressBar(context);
 
@@ -54,7 +54,25 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void handleSignInWithEmailPassword() async {
+  void _handleSignInWithFacebook() async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+    DialogsUtil.showProgressBar(context);
+
+    try {
+      authService.signInWithFacebook().then((user) {
+        Navigator.pop(context);
+
+        if (user != null) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+        }
+      });
+    } catch (e) {
+      // Handle the specific exception, e.g., print or show an error message.
+      print("Google Sign-In Error: $e");
+    }
+  }
+
+  void _handleSignInWithEmailPassword() async {
     final authService = Provider.of<AuthService>(context, listen: false);
     DialogsUtil.showProgressBar(context);
 
@@ -130,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           text: 'Login',
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              handleSignInWithEmailPassword();
+                              _handleSignInWithEmailPassword();
                             }
                           },
                         ),
@@ -157,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           icon: Image.asset(ImageUrls.googleIcon, width: 24),
                           bgColor: ColorsTheme.light,
                           textColor: ColorsTheme.black,
-                          onPressed: handleSignInWithGoogle,
+                          onPressed: _handleSignInWithGoogle,
                         ),
                         const SizedBox(height: 8),
                         ButtonWidget(
@@ -166,6 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           icon: Image.asset(ImageUrls.facebookIcon, width: 24),
                           bgColor: ColorsTheme.light,
                           textColor: ColorsTheme.black,
+                          onPressed: _handleSignInWithFacebook,
                         ),
                         const SizedBox(height: 16),
                       ],
