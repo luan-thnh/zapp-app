@@ -98,7 +98,7 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
                         ],
                       ),
                       const SizedBox(width: 24),
-                      Text(title, style: Theme.of(context).textTheme.headline3)
+                      Text(title, style: Theme.of(context).textTheme.displaySmall)
                     ],
                   ),
                   Row(
@@ -106,12 +106,14 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
                       IconButtonWidget(
                         onPressed: onPressedIcon,
                         icon: iconFirst,
+                        size: 42,
                         bgColor: Theme.of(context).colorScheme.secondary,
                       ),
                       if (isIconEdit) const SizedBox(width: 12),
                       if (isIconEdit)
                         IconButtonWidget(
                           onPressed: () {},
+                          size: 42,
                           icon: FaIcon(
                             FontAwesomeIcons.solidPenToSquare,
                             color: Theme.of(context).iconTheme.color,

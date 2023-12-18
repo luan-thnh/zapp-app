@@ -63,7 +63,7 @@ class ValidateFieldUtil {
       int? month = int.parse(parts[1]);
       int? year = int.parse(parts[2]);
 
-      DateTime birthDate = DateTime(year!, month!, day!);
+      DateTime birthDate = DateTime(year, month, day);
 
       if (birthDate.year + 7 > DateTime.now().year) {
         return 'Invalid date of birth.';

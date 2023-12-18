@@ -14,8 +14,7 @@ class SearchButtonWidget extends StatelessWidget {
       child: TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
-          primary: ColorsTheme.primary,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          foregroundColor: ColorsTheme.primary, padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           backgroundColor: Theme.of(context).colorScheme.secondary,
         ),
         child: Row(

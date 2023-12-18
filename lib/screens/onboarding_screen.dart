@@ -30,9 +30,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       authService.signInWithGoogle().then((user) {
         Navigator.pop(context);
 
-        if (user != null) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-        }
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
       });
     } catch (e) {
       // Handle the specific exception, e.g., print or show an error message.
@@ -48,9 +46,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       authService.signInWithFacebook().then((user) {
         Navigator.pop(context);
 
-        if (user != null) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-        }
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
       });
     } catch (e) {
       // Handle the specific exception, e.g., print or show an error message.
@@ -72,7 +68,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             children: [
               const Image(image: AssetImage(ImageUrls.zappLogo), width: 125),
               const SizedBox(height: 28),
-              Text('Welcome to ', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline1),
+              Text('Welcome to ', textAlign: TextAlign.center, style: Theme.of(context).textTheme.displayLarge),
               GradientText(
                 'Zapp',
                 style: TypographyTheme.headingBig(),
@@ -118,7 +114,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       child: Text(
                         'Or',
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
                   ),
@@ -136,7 +132,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Already have an account?', style: Theme.of(context).textTheme.bodyText2),
+                  Text('Already have an account?', style: Theme.of(context).textTheme.bodyMedium),
                   TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/login');
