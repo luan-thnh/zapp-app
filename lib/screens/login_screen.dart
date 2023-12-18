@@ -46,9 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
       authService.signInWithGoogle().then((user) {
         Navigator.pop(context);
 
-        // if (user != null) {
-        //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-        // }
+        if (user != null) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+        }
       });
     } catch (e) {
       print("Google Sign-In Error: $e");

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:messenger/theme/colors_theme.dart';
 
-class IconButtonWidget extends StatelessWidget {
+class ImageButtonWidget extends StatelessWidget {
   final String icon;
   final void Function()? onPressed;
-  const IconButtonWidget({super.key, required this.icon, this.onPressed});
+  const ImageButtonWidget({super.key, required this.icon, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
