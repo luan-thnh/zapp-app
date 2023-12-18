@@ -45,7 +45,6 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       authService.signInWithGoogle().then((user) {
         Navigator.pop(context);
-
         if (user != null) {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
         }

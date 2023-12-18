@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:messenger/configs/firebase_config.dart';
 import 'package:messenger/configs/routes_config.dart';
+import 'package:messenger/layouts/navigator_layout.dart';
 import 'package:messenger/screens/splash_screen.dart';
 import 'package:messenger/services/auth/auth_service.dart';
 import 'package:provider/provider.dart';

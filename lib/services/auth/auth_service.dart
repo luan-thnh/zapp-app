@@ -1,20 +1,28 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:messenger/api/apis.dart';
+import 'package:messenger/models/chat_user_model.dart';
 
 class AuthService extends ChangeNotifier {
-  // instance of auth
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  // final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  // get current user
+  User get user => APIs.firebaseAuth.currentUser!;
+
+  // check user exists or not
+  Future<bool> userExists() async {
+    return (await APIs.fireStore.collection('users').doc(user.uid).get()).exists;
+  }
 
   // sign in user with email and password
   Future<UserCredential> signInWithEmailAndPassword(String email, String password) async {
     try {
-      UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await APIs.firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
 
       // // add a new document for the user in users collection if it doesn't already exists
-      // _firestore.collection('users').doc(userCredential.user!.uid).set({'uid': userCredential.user!.uid, 'email': email}, SetOptions(merge: true));
+      ChatUserModel user = ChatUserModel.fromUserCredential(userCredential.user);
+
+      APIs.fireStore.collection('users').doc(userCredential.user!.uid).set(user.toJson(), SetOptions(merge: true));
 
       return userCredential;
     }
@@ -28,10 +36,10 @@ class AuthService extends ChangeNotifier {
   // create a new user by email and password
   Future<UserCredential> signUpWithEmailAndPassword(BuildContext context, String email, String password) async {
     try {
-      UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await APIs.firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
 
       // // after creating the user
-      // _firestore.collection('users').doc(userCredential.user!.uid).set({'uid': userCredential.user!.uid, 'email': email});
+      // APIs.fireStore.collection('users').doc(userCredential.user!.uid).set({'uid': userCredential.user!.uid, 'email': email});
 
       // if (context.mounted) {
       //   await sendEmailVerification(context);
@@ -49,7 +57,7 @@ class AuthService extends ChangeNotifier {
   // send email verification
   Future<void> sendEmailVerification(BuildContext context) async {
     try {
-      _firebaseAuth.currentUser!.sendEmailVerification();
+      APIs.firebaseAuth.currentUser!.sendEmailVerification();
     }
 
     // catch any errors
@@ -74,7 +82,13 @@ class AuthService extends ChangeNotifier {
       );
 
       // Once signed in, return the UserCredential
-      return await _firebaseAuth.signInWithCredential(credential);
+      UserCredential userCredential = await APIs.firebaseAuth.signInWithCredential(credential);
+
+      ChatUserModel user = ChatUserModel.fromUserCredential(userCredential.user);
+
+      APIs.fireStore.collection('users').doc(userCredential.user!.uid).set(user.toJson(), SetOptions(merge: true));
+
+      return userCredential;
     }
 
     // catch any errors
@@ -85,6 +99,6 @@ class AuthService extends ChangeNotifier {
 
   // sign out user
   Future<void> signOut() async {
-    return await _firebaseAuth.signOut();
+    return await APIs.firebaseAuth.signOut();
   }
 }
