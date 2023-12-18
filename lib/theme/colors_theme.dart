@@ -20,8 +20,8 @@ class ColorsTheme {
 
   // set theme app
   static final darkTheme = ThemeData(
-    fontFamily: 'Roboto',
     useMaterial3: true,
+    fontFamily: 'Roboto',
     scaffoldBackgroundColor: ColorsTheme.black,
     primaryColor: ColorsTheme.black,
     backgroundColor: ColorsTheme.black,
@@ -55,11 +55,16 @@ class ColorsTheme {
   );
 
   static final lightTheme = ThemeData(
-    fontFamily: 'Roboto',
     useMaterial3: true,
+    fontFamily: 'Roboto',
     scaffoldBackgroundColor: ColorsTheme.white,
     primaryColor: ColorsTheme.white,
     backgroundColor: ColorsTheme.white,
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: ColorsTheme.white,
+      selectionColor: ColorsTheme.white,
+      selectionHandleColor: ColorsTheme.white,
+    ),
     colorScheme: const ColorScheme(
       primary: ColorsTheme.white,
       brightness: Brightness.dark,

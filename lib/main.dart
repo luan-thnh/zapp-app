@@ -6,8 +6,12 @@ import 'package:messenger/layouts/navigator_layout.dart';
 import 'package:messenger/screens/splash_screen.dart';
 import 'package:messenger/services/auth/auth_service.dart';
 import 'package:messenger/services/provider/theme_provider.dart';
+import 'package:messenger/services/provider/gallery_controller.dart';
+import 'package:messenger/services/provider/sound_controller.dart';
 import 'package:messenger/theme/colors_theme.dart';
 import 'package:provider/provider.dart';
+
+late bool isThreeButtonNavigation;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +24,8 @@ void main() {
           providers: [
             ChangeNotifierProvider(create: (context) => AuthService()),
             ChangeNotifierProvider(create: (context) => ThemeProvider()),
+            ChangeNotifierProvider(create: (_) => SoundController.instance),
+            ChangeNotifierProvider(create: (_) => GalleryController.instance),
           ],
           child: const MyApp(),
         ),
@@ -30,9 +36,11 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    isThreeButtonNavigation = MediaQuery.of(context).padding.bottom == 0 && Theme.of(context).platform == TargetPlatform.android;
 
     return MaterialApp(
       title: 'Zapp',

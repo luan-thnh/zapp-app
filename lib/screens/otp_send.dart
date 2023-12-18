@@ -22,6 +22,7 @@ class OtpInput extends StatelessWidget {
         keyboardType: TextInputType.number,
         style: TypographyTheme.headingBig(fontWeight: FontWeight.w900),
         textAlign: TextAlign.center,
+        cursorColor: Theme.of(context).colorScheme.inversePrimary,
         inputFormatters: [LengthLimitingTextInputFormatter(1), FilteringTextInputFormatter.digitsOnly],
         onChanged: (value) {
           if (value.length == 1) {
@@ -111,6 +112,7 @@ class _OtpScreenState extends State<OtpScreen> {
         builder: (BuildContext dialogContext) {
           return AlertDialog(
             title: Text('Success'),
+            insetPadding: EdgeInsets.symmetric(horizontal: 12),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             content: RichText(
               text: TextSpan(
@@ -212,7 +214,7 @@ class _OtpScreenState extends State<OtpScreen> {
             const SizedBox(height: 40),
             ButtonWidget(
               text: "Continue",
-              disable: checkInput(),
+              disable: disableButton() || checkInput(),
               bgColor: ColorsTheme.primary,
               textColor: ColorsTheme.white,
               onPressed: disableButton() || checkInput()

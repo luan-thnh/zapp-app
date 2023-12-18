@@ -63,7 +63,7 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
           title: Text(
             'Me',
-            style: Theme.of(context).textTheme.headline3,
+            style: Theme.of(context).textTheme.displaySmall,
           ),
         ),
         body: StreamBuilder(
@@ -83,7 +83,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         "title": Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Dark mode', style: Theme.of(context).textTheme.bodyText1),
+                            Text('Dark mode', style: Theme.of(context).textTheme.bodyLarge),
                             Text(
                               'off',
                               style: TypographyTheme.text3(),
@@ -107,7 +107,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         "title": Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Active Status', style: Theme.of(context).textTheme.bodyText1),
+                            Text('Active Status', style: Theme.of(context).textTheme.bodyLarge),
                             currentUser.isOnline ? Text('on', style: TypographyTheme.text3()) : Text('off', style: TypographyTheme.text3()),
                           ],
                         ),
@@ -123,7 +123,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         "title": Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Username', style: Theme.of(context).textTheme.bodyText1),
+                            Text('Username', style: Theme.of(context).textTheme.bodyLarge),
                             Text('m.me/${currentUser.username}', style: TypographyTheme.text3()),
                           ],
                         ),
@@ -140,7 +140,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: FaIcon(FontAwesomeIcons.userGroup, size: 16, color: ColorsTheme.white),
                           bgColor: ColorsTheme.blue,
                         ),
-                        "title": Text('Supervise', style: Theme.of(context).textTheme.bodyText1),
+                        "title": Text('Supervise', style: Theme.of(context).textTheme.bodyLarge),
                         "onTap": () {}
                       },
                     ]
@@ -152,7 +152,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: FaIcon(FontAwesomeIcons.suitcase, size: 19, color: ColorsTheme.white),
                           bgColor: ColorsTheme.green,
                         ),
-                        "title": Text('Orders', style: Theme.of(context).textTheme.bodyText1),
+                        "title": Text('Orders', style: Theme.of(context).textTheme.bodyLarge),
                         "onTap": () {}
                       }
                     ]
@@ -164,7 +164,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: Icon(Icons.person, color: Colors.white, size: 26),
                           bgColor: ColorsTheme.purple,
                         ),
-                        "title": Text('Avatar', style: Theme.of(context).textTheme.bodyText1),
+                        "title": Text('Avatar', style: Theme.of(context).textTheme.bodyLarge),
                         "onTap": () {}
                       },
                       {
@@ -172,7 +172,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: FaIcon(FontAwesomeIcons.solidBell, color: ColorsTheme.white, size: 21),
                           bgColor: ColorsTheme.purple,
                         ),
-                        "title": Text('Notifications and sounds', style: Theme.of(context).textTheme.bodyText1),
+                        "title": Text('Notifications and sounds', style: Theme.of(context).textTheme.bodyLarge),
                         "onTap": () {}
                       },
                       {
@@ -180,7 +180,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: FaIcon(FontAwesomeIcons.houseLock, size: 18, color: ColorsTheme.white),
                           bgColor: Colors.lightBlueAccent,
                         ),
-                        "title": Text('Privacy and safety', style: Theme.of(context).textTheme.bodyText1),
+                        "title": Text('Privacy and safety', style: Theme.of(context).textTheme.bodyLarge),
                         "onTap": () {}
                       },
                       {
@@ -188,7 +188,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: FaIcon(FontAwesomeIcons.shield, size: 21, color: ColorsTheme.white),
                           bgColor: ColorsTheme.blueDark,
                         ),
-                        "title": Text('Data saver', style: Theme.of(context).textTheme.bodyText1),
+                        "title": Text('Data saver', style: Theme.of(context).textTheme.bodyLarge),
                         "onTap": () {}
                       },
                       {
@@ -196,7 +196,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: FaIcon(FontAwesomeIcons.solidImage, size: 18, color: ColorsTheme.white),
                           bgColor: ColorsTheme.purple,
                         ),
-                        "title": Text('Photos & media', style: Theme.of(context).textTheme.bodyText1),
+                        "title": Text('Photos & media', style: Theme.of(context).textTheme.bodyLarge),
                         "onTap": () {}
                       },
                       {
@@ -207,7 +207,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         "title": Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Chat bubbles', style: Theme.of(context).textTheme.bodyText1),
+                            Text('Chat bubbles', style: Theme.of(context).textTheme.bodyLarge),
                             Transform.scale(
                               scale: 0.6,
                               child: CupertinoSwitch(
@@ -233,7 +233,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: FaIcon(FontAwesomeIcons.download, size: 19, color: ColorsTheme.white),
                           bgColor: Colors.lightBlueAccent,
                         ),
-                        "title": Text('Update', style: Theme.of(context).textTheme.bodyText1),
+                        "title": Text('Update', style: Theme.of(context).textTheme.bodyLarge),
                         "onTap": () {}
                       },
                     ]
@@ -245,7 +245,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: FaIcon(FontAwesomeIcons.triangleExclamation, color: Colors.white, size: 21),
                           bgColor: ColorsTheme.red,
                         ),
-                        "title": Text('Report a disciplinary incident', style: Theme.of(context).textTheme.bodyText1),
+                        "title": Text('Report a disciplinary incident', style: Theme.of(context).textTheme.bodyLarge),
                         "onTap": () {}
                       },
                       {
@@ -253,7 +253,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: FaIcon(FontAwesomeIcons.solidCircleQuestion, color: Colors.white, size: 21),
                           bgColor: Colors.lightBlueAccent,
                         ),
-                        "title": Text('Help', style: Theme.of(context).textTheme.bodyText1),
+                        "title": Text('Help', style: Theme.of(context).textTheme.bodyLarge),
                         "onTap": () {}
                       },
                       {
@@ -261,7 +261,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: FaIcon(FontAwesomeIcons.solidFileLines, color: Colors.white, size: 21),
                           bgColor: ColorsTheme.grey,
                         ),
-                        "title": Text('Legal & policy', style: Theme.of(context).textTheme.bodyText1),
+                        "title": Text('Legal & policy', style: Theme.of(context).textTheme.bodyLarge),
                         "onTap": () {}
                       },
                     ]
@@ -286,15 +286,19 @@ class _AccountScreenState extends State<AccountScreen> {
                             bottom: -5,
                             right: -5,
                             child: Container(
-                              padding: const EdgeInsets.all(4),
+                              padding: const EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).scaffoldBackgroundColor,
+                                borderRadius: BorderRadius.circular(999),
+                              ),
                               child: IconButtonWidget(
                                 onPressed: () {
                                   _showBottomSheet();
                                 },
-                                bgColor: const Color(0xFAF2F2F8),
-                                icon: const Icon(
+                                bgColor: Theme.of(context).colorScheme.secondary,
+                                icon: Icon(
                                   Icons.camera_alt,
-                                  color: Colors.black,
+                                  color: Theme.of(context).iconTheme.color,
                                   size: 20,
                                 ),
                               ),
@@ -305,9 +309,13 @@ class _AccountScreenState extends State<AccountScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Text(
-                        currentUser.username,
-                        style: Theme.of(context).textTheme.headline1,
+                      Column(
+                        children: [
+                          Text(
+                            '${currentUser.firstName} ${currentUser.lastName}',
+                            style: Theme.of(context).textTheme.displayLarge,
+                          ),
+                        ],
                       ),
                       TextButton(
                           onPressed: () {},
@@ -363,14 +371,14 @@ class _AccountScreenState extends State<AccountScreen> {
                             ),
                             Text(
                               'Account Center',
-                              style: TypographyTheme.heading4(),
+                              style: Theme.of(context).textTheme.headline4,
                             ),
                             const SizedBox(
                               height: 5,
                             ),
                             Text(
                               'Manage account settings and connected experiences across Meta technologies',
-                              style: TypographyTheme.text2(),
+                              style: Theme.of(context).textTheme.bodyText2,
                             ),
                             const SizedBox(
                               height: 10,
@@ -387,7 +395,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 ),
                                 Text(
                                   'Personal information',
-                                  style: TypographyTheme.text2(),
+                                  style: Theme.of(context).textTheme.bodyText2,
                                 ),
                               ],
                             ),
@@ -406,7 +414,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 ),
                                 Text(
                                   'Passwords and security',
-                                  style: TypographyTheme.text2(),
+                                  style: Theme.of(context).textTheme.bodyText2,
                                 ),
                               ],
                             ),
@@ -435,18 +443,17 @@ class _AccountScreenState extends State<AccountScreen> {
 
   void _showBottomUser(user) {
     showModalBottomSheet(
-        backgroundColor: const Color(0xff242527),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         context: context,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         builder: (_) {
           return Container(
             constraints: BoxConstraints(maxHeight: mq.height * 0.5),
             decoration: const BoxDecoration(
-                color: ColorsTheme.white,
                 borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(32),
-                  topLeft: Radius.circular(32),
-                )),
+              topRight: Radius.circular(32),
+              topLeft: Radius.circular(32),
+            )),
             child: ListView(
               shrinkWrap: true,
               padding: EdgeInsets.only(top: mq.height * .01, bottom: mq.height * .07),
@@ -466,17 +473,16 @@ class _AccountScreenState extends State<AccountScreen> {
                     ),
                     Card(
                       elevation: 0,
-                      color: ColorsTheme.white,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       child: ListTile(
                         title: Text(
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                           'm.me/${user.username}',
                         ),
                       ),
                     ),
                     Card(
                       elevation: 0,
-                      color: ColorsTheme.white,
                       child: ListTile(
                         onTap: () {
                           Navigator.pop(context);
@@ -495,13 +501,12 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                         title: Text(
                           'Edit your username',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
                     ),
                     Card(
                       elevation: 0,
-                      color: ColorsTheme.white,
                       child: ListTile(
                         onTap: () async {
                           await Clipboard.setData(ClipboardData(text: user.userName)).then((value) {
@@ -516,7 +521,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                         title: Text(
                           'Copy link',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
                     ),
@@ -532,18 +537,16 @@ class _AccountScreenState extends State<AccountScreen> {
     final authService = Provider.of<AuthService>(context, listen: false);
 
     showModalBottomSheet(
-        backgroundColor: const Color(0xff242527),
         context: context,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         builder: (_) {
           return Container(
             constraints: BoxConstraints(maxHeight: mq.height * 0.5),
             decoration: const BoxDecoration(
-                color: ColorsTheme.white,
                 borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(32),
-                  topLeft: Radius.circular(32),
-                )),
+              topRight: Radius.circular(32),
+              topLeft: Radius.circular(32),
+            )),
             child: ListView(
               shrinkWrap: true,
               padding: EdgeInsets.only(top: mq.height * .01, bottom: mq.height * .07),
@@ -565,7 +568,6 @@ class _AccountScreenState extends State<AccountScreen> {
                     //pick from gallery button
                     Card(
                       elevation: 0,
-                      color: ColorsTheme.white,
                       child: ListTile(
                         onTap: () async {
                           final ImagePicker picker = ImagePicker();
@@ -588,13 +590,12 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                         title: Text(
                           'Choose a profile picture',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
                     ),
                     Card(
                       elevation: 0,
-                      color: ColorsTheme.white,
                       child: ListTile(
                           onTap: () async {
                             final ImagePicker picker = ImagePicker();
@@ -619,7 +620,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           ),
                           title: Text(
                             'Take a profile picture',
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           )),
                     ),
                   ],

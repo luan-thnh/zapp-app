@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:messenger/api/apis.dart';
 import 'package:messenger/models/chat_user_model.dart';
+import 'package:messenger/screens/chatting_screen.dart';
 import 'package:messenger/theme/colors_theme.dart';
 import 'package:messenger/theme/typography_theme.dart';
 import 'package:messenger/widgets/avatar_widget.dart';
@@ -33,7 +34,10 @@ class SlideFriendsWidget extends StatelessWidget {
                   Container(
                     width: 56,
                     height: 56,
-                    decoration: BoxDecoration(color: Theme.of(context).colorScheme.secondary, borderRadius: BorderRadius.circular(9999)),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(9999),
+                    ),
                     child: Icon(
                       Icons.video_call_rounded,
                       size: 32,
@@ -56,6 +60,7 @@ class SlideFriendsWidget extends StatelessWidget {
           return SlideFriendItem(
             title: filteredList[index - 1].firstName,
             imageUrl: filteredList[index - 1].avatar,
+            user: filteredList[index - 1],
           );
         },
       ),
@@ -66,10 +71,11 @@ class SlideFriendsWidget extends StatelessWidget {
 class SlideFriendItem extends StatelessWidget {
   final String imageUrl;
   final String title;
-  const SlideFriendItem({super.key, required this.imageUrl, required this.title});
+  final ChatUserModel user;
+  const SlideFriendItem({super.key, required this.imageUrl, required this.title, required this.user});
 
   void _showPopupMenu(BuildContext context, Offset tapPosition) async {
-    final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
+    final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
 
     await showMenu(
       context: context,
@@ -82,19 +88,19 @@ class SlideFriendItem extends StatelessWidget {
         PopupMenuItem(
           child: Text(
             "View personal page",
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
         PopupMenuItem(
           child: Text(
             "Share contact information",
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
         PopupMenuItem(
           child: Text(
             "Hide contacts",
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
       ],
@@ -103,6 +109,8 @@ class SlideFriendItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isButtonEnabled = true;
+
     return SizedBox(
       width: 70,
       child: GestureDetector(
@@ -110,6 +118,18 @@ class SlideFriendItem extends StatelessWidget {
           final RenderBox renderBox = context.findRenderObject() as RenderBox;
           final tapPosition = renderBox.localToGlobal(const Offset(0, 56));
           _showPopupMenu(context, tapPosition);
+        },
+        onTap: () async {
+          if (isButtonEnabled) {
+            isButtonEnabled = false;
+            await Future.delayed(const Duration(seconds: 1));
+
+            if (!context.mounted) return;
+
+            Navigator.of(context).push(MaterialPageRoute(builder: (_) => ChattingScreen(user: user)));
+
+            isButtonEnabled = true;
+          }
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,7 +147,7 @@ class SlideFriendItem extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
-                        color: ColorsTheme.white,
+                        color: Theme.of(context).scaffoldBackgroundColor,
                         borderRadius: BorderRadius.circular(9999),
                       ),
                       child: Container(

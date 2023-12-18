@@ -46,10 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       authService.signInWithGoogle().then((user) {
         Navigator.pop(context);
-        if (user != null) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-        }
-      });
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+            });
     } catch (e) {
       print("Google Sign-In Error: $e");
     }
@@ -63,10 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
       authService.signInWithFacebook().then((user) {
         Navigator.pop(context);
 
-        if (user != null) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-        }
-      });
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+            });
     } catch (e) {
       // Handle the specific exception, e.g., print or show an error message.
       print("Google Sign-In Error: $e");
@@ -81,10 +77,8 @@ class _LoginScreenState extends State<LoginScreen> {
       await authService.signInWithEmailAndPassword(_phoneNumberOrEmailController.text.trim(), _passwordController.text.trim()).then((user) {
         Navigator.pop(context);
 
-        if (user != null) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-        }
-      });
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+            });
     } catch (e) {
       print("Email/Password Sign-In Error: $e");
     }
@@ -144,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (_) => ForgotPasswordScreen()),
+                              MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
                             );
                           },
                           child: Text('Forgot password?', style: TypographyTheme.heading5(color: ColorsTheme.primary)),
@@ -170,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 decoration: BoxDecoration(
                                   color: Theme.of(context).scaffoldBackgroundColor,
                                 ),
-                                child: Text('Or', style: Theme.of(context).textTheme.bodyText2),
+                                child: Text('Or', style: Theme.of(context).textTheme.bodyMedium),
                               ),
                             ),
                           ],

@@ -23,7 +23,7 @@ class InputControlWidget extends StatelessWidget {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
-      cursorColor: Theme.of(context).iconTheme.color,
+      cursorColor: Theme.of(context).colorScheme.inversePrimary,
       onTap: onTap,
       decoration: InputDecoration(
         hintText: hintText,

@@ -1,5 +1,6 @@
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/zapp-favicon.jpg"
+#  image_path: "assets/images/zapp-favicon.jpg"
+  image_path: "assets/images/zapp-transparent-favicon.png"
   min_sdk_android: 21
