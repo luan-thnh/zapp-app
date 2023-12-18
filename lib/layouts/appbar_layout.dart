@@ -45,10 +45,14 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: false,
       flexibleSpace: StreamBuilder(
-        stream: APIs.fireStore.collection('users').doc(authService.user.uid).snapshots(),
+        stream: APIs.fireStore
+            .collection('users')
+            .doc(authService.user.uid)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data!.exists) {
-            ChatUserModel currentUser = ChatUserModel.fromJson(snapshot.data!.data()!);
+            ChatUserModel currentUser =
+                ChatUserModel.fromJson(snapshot.data!.data()!);
 
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -66,7 +70,10 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
                               borderRadius: BorderRadius.circular(9999),
                             ),
                             onTap: onTapAvatar,
-                            child: AvatarWidget(avatarUrl: currentUser.avatar, width: 48, height: 48),
+                            child: AvatarWidget(
+                                avatarUrl: currentUser.avatar,
+                                width: 48,
+                                height: 48),
                           ),
                           if (quantityNotify != null)
                             Positioned(
@@ -76,17 +83,23 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
                                 padding: const EdgeInsets.all(3.0),
                                 decoration: BoxDecoration(
                                   color: ColorsTheme.white,
-                                  borderRadius: BorderRadius.circular(9999), // Adjusted border radius
+                                  borderRadius: BorderRadius.circular(
+                                      9999), // Adjusted border radius
                                 ),
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 2, horizontal: 6),
                                   decoration: BoxDecoration(
                                     color: ColorsTheme.red,
-                                    borderRadius: BorderRadius.circular(9999), // Adjusted border radius
+                                    borderRadius: BorderRadius.circular(
+                                        9999), // Adjusted border radius
                                   ),
                                   child: Text(
                                     '$quantityNotify+',
-                                    style: const TextStyle(color: ColorsTheme.white, fontWeight: FontWeight.w700, fontSize: 8),
+                                    style: const TextStyle(
+                                        color: ColorsTheme.white,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 8),
                                   ),
                                 ),
                               ),
