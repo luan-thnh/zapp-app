@@ -93,6 +93,7 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
                               ),
                             ),
                           ),
+<<<<<<< HEAD
                       ],
                     ),
                     const SizedBox(width: 24),
@@ -122,6 +123,18 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
               ],
             ),
           );
+=======
+                          bgColor: ColorsTheme.light,
+                        )
+                    ],
+                  ),
+                ],
+              ),
+            );
+          }
+          return Container();
+
+>>>>>>> 8e23d34 (feat/hungdd: create register Info User)
           // Ví dụ: print(currentUser.firstName);
         },
       ),

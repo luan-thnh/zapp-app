@@ -30,4 +30,38 @@ class ValidateFieldUtil {
       }
     }
   }
+
+  static String? validateRePassword(String? value, String? password) {
+    if (value != password) {
+      return 'Password do not match. Please try again.';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateFirstName(String? value) {
+    if (value!.isEmpty) {
+      return 'Please enter your first name.';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateLastName(String? value) {
+    if (value!.isEmpty) {
+      return 'Please enter your last name.';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validateBirthday(String? birth) {
+    int? year = int.parse(birth!.substring(0, 4));
+
+    if (year + 7 > DateTime.now().year) {
+      return 'Invalid date of birth.';
+    } else {
+      return null;
+    }
+  }
 }

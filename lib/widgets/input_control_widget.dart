@@ -6,6 +6,7 @@ class InputControlWidget extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final Color borderColor;
+  final Function()? onTap;
   final String? Function(String?)? validator;
 
   const InputControlWidget(
@@ -13,6 +14,7 @@ class InputControlWidget extends StatelessWidget {
       required this.controller,
       required this.hintText,
       required this.obscureText,
+      this.onTap,
       this.validator,
       this.borderColor = ColorsTheme.greyLight});
 
@@ -21,6 +23,7 @@ class InputControlWidget extends StatelessWidget {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
+      onTap: onTap,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(color: ColorsTheme.greyLight, fontWeight: FontWeight.normal),
