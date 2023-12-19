@@ -6,6 +6,8 @@ class ChatUserModel {
     required this.username,
     required this.firstName,
     required this.lastName,
+    required this.dayOfBirth,
+    required this.gender,
     required this.email,
     required this.avatar,
     required this.description,
@@ -20,6 +22,8 @@ class ChatUserModel {
   late final String username;
   late final String firstName;
   late final String lastName;
+  late final String dayOfBirth;
+  late final String gender;
   late final String email;
   late final String avatar;
   late final String description;
@@ -34,6 +38,8 @@ class ChatUserModel {
     username = json['username'] ?? '';
     firstName = json['first_name'] ?? '';
     lastName = json['last_name'] ?? '';
+    dayOfBirth = json['day_of_birth'] ?? '';
+    gender = json['gender'] ?? '';
     email = json['email'] ?? '';
     avatar = json['avatar'] ?? '';
     description = json['description'] ?? '';
@@ -55,6 +61,8 @@ class ChatUserModel {
       username: 'zapp-01',
       firstName: firstName,
       lastName: lastName,
+      dayOfBirth: '',
+      gender: '',
       email: user.email.toString(),
       avatar: user.photoURL.toString(),
       description: 'Hello, My name is ABC',
@@ -72,6 +80,8 @@ class ChatUserModel {
     _data['username'] = username;
     _data['first_name'] = firstName;
     _data['last_name'] = lastName;
+    _data['day_of_birth'] = dayOfBirth;
+    _data['gender'] = gender;
     _data['email'] = email;
     _data['avatar'] = avatar;
     _data['description'] = description;

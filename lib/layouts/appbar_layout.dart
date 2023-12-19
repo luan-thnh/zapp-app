@@ -117,6 +117,7 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
             );
           }
           return Container();
+
           // Ví dụ: print(currentUser.firstName);
         },
       ),

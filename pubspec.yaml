@@ -19,6 +19,13 @@ dependencies:
   connectivity_plus: ^5.0.2
   cloud_firestore: ^4.13.6
   flutter_facebook_auth: ^6.0.3
+  datepicker_cupertino: ^0.0.4
+  # For picking images
+  image_picker: ^1.0.4
+  # For showing network images
+  cached_network_image: ^3.3.0
+  # For accessing Firebase Storage (for uploading files)
+  firebase_storage: ^11.5.1
 
 dev_dependencies:
   flutter_test:
