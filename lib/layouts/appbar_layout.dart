@@ -33,13 +33,17 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
   }) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(120);
+  Size get preferredSize => const Size.fromHeight(56);
 
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
 
     return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      automaticallyImplyLeading: false,
       flexibleSpace: StreamBuilder(
         stream: APIs.fireStore.collection('users').doc(authService.user.uid).snapshots(),
         builder: (context, snapshot) {
@@ -47,7 +51,8 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
             ChatUserModel currentUser = ChatUserModel.fromJson(snapshot.data!.data()!);
 
             return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              alignment: Alignment.bottomCenter,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

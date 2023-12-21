@@ -5,6 +5,7 @@ import 'package:messenger/configs/routes_config.dart';
 import 'package:messenger/layouts/navigator_layout.dart';
 import 'package:messenger/screens/splash_screen.dart';
 import 'package:messenger/services/auth/auth_service.dart';
+import 'package:messenger/theme/colors_theme.dart';
 import 'package:provider/provider.dart';
 
 void main() {
