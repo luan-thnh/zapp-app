@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:messenger/constants/image_urls.dart';
 import 'package:messenger/screens/home_screen.dart';
+import 'package:messenger/screens/register_screen.dart';
 import 'package:messenger/services/auth/auth_service.dart';
 import 'package:messenger/theme/colors_theme.dart';
 import 'package:messenger/theme/typography_theme.dart';
@@ -121,7 +122,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ],
                 ),
                 const SizedBox(height: 16),
-                const ButtonWidget(disable: false, text: 'Create an Account'),
+                ButtonWidget(
+                  disable: false,
+                  text: 'Create an Account',
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/register');
+                  },
+                ),
                 const SizedBox(height: 42),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
