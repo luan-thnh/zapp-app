@@ -9,10 +9,11 @@ class NavigatorLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size mq = MediaQuery.of(context).size;
+
     return Container(
-      height: 100,
+      height: mq.height * 0.125,
       color: Colors.white,
-      padding: const EdgeInsets.only(top: 20.0),
       child: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         elevation: 0,

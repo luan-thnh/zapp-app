@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:messenger/constants/image_urls.dart';
 import 'package:messenger/layouts/appbar_layout.dart';
-import 'package:messenger/screens/onboarding_screen.dart';
+import 'package:messenger/models/chat_user_model.dart';
 import 'package:messenger/services/auth/auth_service.dart';
 import 'package:messenger/theme/colors_theme.dart';
-import 'package:messenger/theme/typography_theme.dart';
-import 'package:messenger/utils/dialogs_util.dart';
-import 'package:messenger/widgets/button_widget.dart';
+import 'package:messenger/utils/connect_internet_util.dart';
+import 'package:messenger/widgets/circular_progress_gradient.dart';
+import 'package:messenger/widgets/list_chat_user.dart';
+import 'package:messenger/widgets/search_button_widget.dart';
+import 'package:messenger/widgets/slide_friends_widget.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -18,24 +20,12 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  void handleSignOut() async {
-    final authService = Provider.of<AuthService>(context, listen: false);
-    DialogsUtil.showProgressBar(context);
-
-    try {
-      authService.signOut().then((value) {
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const OnboardingScreen()),
-          (route) => false,
-        );
-      });
-    } catch (e) {
-      print("Google Sign-In Error: $e");
-    }
-  }
+  List<ChatUserModel> list = [];
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context, listen: false);
+
     return Scaffold(
       appBar: const AppBarLayout(
         avatarUrl: ImageUrls.avatarDefault,
@@ -46,26 +36,33 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
         title: 'Chat',
       ),
-      body: Container(
-        padding: const EdgeInsets.all(32),
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Home Screen',
-              style: TypographyTheme.heading2(),
-            ),
-            const SizedBox(height: 32),
-            ButtonWidget(
-              text: 'Logout',
-              bgColor: ColorsTheme.primary,
-              textColor: ColorsTheme.white,
-              disable: false,
-              onPressed: handleSignOut,
-            )
-          ],
-        ),
+      body: StreamBuilder(
+        stream: authService.findAllUsers(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+            case ConnectionState.none:
+              return const CircularProgressGradient();
+
+            case ConnectionState.active:
+            case ConnectionState.done:
+              final data = snapshot.data?.docs;
+
+              list = data?.map((e) => ChatUserModel.fromJson(e.data())).toList() ?? [];
+
+              return ConnectInternetUtil(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SearchButtonWidget(),
+                    SlideFriendsWidget(list: list),
+                    const SizedBox(height: 8),
+                    ListChatUser(list: list),
+                  ],
+                ),
+              );
+          }
+        },
       ),
     );
   }

@@ -59,21 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(
-          stream: Connectivity().onConnectivityChanged,
-          builder: (context, AsyncSnapshot<ConnectivityResult> snapshot) {
-            if (snapshot.hasData) {
-              ConnectivityResult? result = snapshot.data;
-              if (result == ConnectivityResult.none) {
-                return const Text('disconnect');
-              } else {
-                return pages[currentIndex];
-              }
-            }
-            return const Center(
-              child: CircularProgressGradient(),
-            );
-          }),
+      body: pages[currentIndex],
       bottomNavigationBar: NavigatorLayout(
         currentIndex: currentIndex,
         onTapNavigatorBar: onTapNavigatorBar,
