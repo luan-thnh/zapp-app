@@ -33,13 +33,17 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
   }) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(120);
+  Size get preferredSize => const Size.fromHeight(56);
 
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
 
     return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      automaticallyImplyLeading: false,
       flexibleSpace: StreamBuilder(
         stream: APIs.fireStore.collection('users').doc(authService.user.uid).snapshots(),
         builder: (context, snapshot) {
@@ -47,6 +51,7 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
             return const Text('Error');
           }
 
+<<<<<<< HEAD
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressGradient();
           }
@@ -66,6 +71,25 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
                         InkWell(
                           customBorder: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(9999),
+=======
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          InkWell(
+                            customBorder: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(9999),
+                            ),
+                            onTap: onTapAvatar,
+                            child: AvatarWidget(avatarUrl: currentUser.avatar, width: 48, height: 48),
+>>>>>>> b75f606 (feat: zapp-007/create-chat-user-list)
                           ),
                           onTap: onTapAvatar,
                           child: AvatarWidget(avatarUrl: currentUser.avatar, width: 48, height: 48),

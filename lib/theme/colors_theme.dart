@@ -10,6 +10,7 @@ class ColorsTheme {
   static const Color lightDark = Color(0xFFE1E1E1);
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF272829);
+  static const Color blackGray = Color(0xFF525357);
   static const Color red = Color(0xFFED0A34);
   static const Color green = Color(0xFF5AD439);
   static const Color purple = Color(0xFF6835F0);

@@ -10,6 +10,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:messenger/api/apis.dart';
 import 'package:messenger/constants/image_urls.dart';
 import 'package:messenger/models/chat_user_model.dart';
+import 'package:messenger/models/friend_request_model.dart';
 
 class AuthService extends ChangeNotifier {
   // get current user
@@ -18,6 +19,10 @@ class AuthService extends ChangeNotifier {
   // check user exists or not
   Future<bool> userExists() async {
     return (await APIs.fireStore.collection('users').doc(user.uid).get()).exists;
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> findAllUsers() {
+    return APIs.fireStore.collection('users').where('id', isNotEqualTo: user.uid).snapshots();
   }
 
   // sign in user with email and password
@@ -172,11 +177,11 @@ class AuthService extends ChangeNotifier {
 
   // sign out user
   Future<void> signOut() async {
+    await GoogleSignIn().signOut();
     await FacebookAuth.instance.logOut();
     return await APIs.firebaseAuth.signOut();
   }
 
-  // for updating user information
   Future<void> updateUserInfo(String firstName, String lastName, String birthday, String gender) async {
     await APIs.fireStore.collection('users').doc(user.uid).update({
       'username': firstName + ' ' + lastName,
@@ -203,5 +208,33 @@ class AuthService extends ChangeNotifier {
     //updating image in firebase database
     String avatar = await ref.getDownloadURL();
     await APIs.fireStore.collection('users').doc(user.uid).update({'avatar': avatar});
+
+    Future<List<FriendRequestModel>> fetchFriendRequests() async {
+      // Fetch friend requests from Firestore
+      QuerySnapshot querySnapshot = await APIs.fireStore.collection('friendRequests').get();
+
+      List<FriendRequestModel> friendRequests = [];
+
+      for (QueryDocumentSnapshot document in querySnapshot.docs) {
+        friendRequests.add(FriendRequestModel(
+          senderName: document['senderName'],
+        ));
+      }
+
+      return friendRequests;
+    }
+
+    Future<void> acceptFriendRequest(FriendRequestModel friendRequest) async {
+      // Add the friend to the user's friend list
+      // (You may need to adapt this based on your data structure)
+      await APIs.fireStore.collection('users').doc('currentUserId').collection('friends').add({'friendName': friendRequest.senderName});
+
+      // Delete the friend request
+      await APIs.fireStore.collection('friendRequests').where('senderName', isEqualTo: friendRequest.senderName).get().then((snapshot) {
+        for (QueryDocumentSnapshot document in snapshot.docs) {
+          document.reference.delete();
+        }
+      });
+    }
   }
 }
