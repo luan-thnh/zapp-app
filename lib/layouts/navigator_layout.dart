@@ -12,19 +12,23 @@ class NavigatorLayout extends StatelessWidget {
     Size mq = MediaQuery.of(context).size;
 
     return Container(
-      height: mq.height * 0.125,
-      color: Colors.white,
+      height: mq.height * 0.12,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         elevation: 0,
-        backgroundColor: ColorsTheme.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         selectedItemColor: ColorsTheme.primary,
+        unselectedItemColor: Theme.of(context).iconTheme.color,
         currentIndex: currentIndex,
         onTap: onTapNavigatorBar,
         items: const [
           BottomNavigationBarItem(
             icon: Badge(
-              label: Text('2'),
+              label: Text(
+                '2',
+                style: TextStyle(color: ColorsTheme.white),
+              ),
               child: FaIcon(
                 FontAwesomeIcons.solidComment,
               ),
@@ -37,7 +41,7 @@ class NavigatorLayout extends StatelessWidget {
               FontAwesomeIcons.video,
             ),
             label: 'Call',
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.red,
           ),
           BottomNavigationBarItem(
             icon: FaIcon(

@@ -40,7 +40,7 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
     final authService = Provider.of<AuthService>(context, listen: false);
 
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       elevation: 0,
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: false,
@@ -51,8 +51,9 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
             ChatUserModel currentUser = ChatUserModel.fromJson(snapshot.data!.data()!);
 
             return Container(
+              margin: const EdgeInsets.only(top: 24),
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -94,7 +95,7 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
                         ],
                       ),
                       const SizedBox(width: 24),
-                      Text(title, style: TypographyTheme.heading3())
+                      Text(title, style: Theme.of(context).textTheme.headline3)
                     ],
                   ),
                   Row(
@@ -102,18 +103,18 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
                       IconButtonWidget(
                         onPressed: onPressedIcon,
                         icon: iconFirst,
-                        bgColor: ColorsTheme.light,
+                        bgColor: Theme.of(context).colorScheme.secondary,
                       ),
                       if (isIconEdit) const SizedBox(width: 12),
                       if (isIconEdit)
                         IconButtonWidget(
                           onPressed: () {},
-                          icon: const FaIcon(
+                          icon: FaIcon(
                             FontAwesomeIcons.solidPenToSquare,
-                            color: ColorsTheme.black,
+                            color: Theme.of(context).iconTheme.color,
                             size: 20,
                           ),
-                          bgColor: ColorsTheme.light,
+                          bgColor: Theme.of(context).colorScheme.secondary,
                         )
                     ],
                   ),

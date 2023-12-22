@@ -22,10 +22,7 @@ class OtpInput extends StatelessWidget {
         keyboardType: TextInputType.number,
         style: TypographyTheme.headingBig(fontWeight: FontWeight.w900),
         textAlign: TextAlign.center,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(1),
-          FilteringTextInputFormatter.digitsOnly
-        ],
+        inputFormatters: [LengthLimitingTextInputFormatter(1), FilteringTextInputFormatter.digitsOnly],
         onChanged: (value) {
           if (value.length == 1) {
             FocusScope.of(context).nextFocus();
@@ -36,6 +33,7 @@ class OtpInput extends StatelessWidget {
         },
         decoration: InputDecoration(
           hintText: ('0'),
+          hintStyle: TextStyle(color: Theme.of(context).iconTheme.color),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
           ),
@@ -47,8 +45,7 @@ class OtpInput extends StatelessWidget {
 }
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({Key? key, required this.myauth, required this.userEmail})
-      : super(key: key);
+  const OtpScreen({Key? key, required this.myauth, required this.userEmail}) : super(key: key);
   final EmailOTP myauth;
   final String userEmail;
 
@@ -102,10 +99,7 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   bool checkInput() {
-    return otp1Controller.text.isEmpty ||
-        otp2Controller.text.isEmpty ||
-        otp3Controller.text.isEmpty ||
-        otp4Controller.text.isEmpty;
+    return otp1Controller.text.isEmpty || otp2Controller.text.isEmpty || otp3Controller.text.isEmpty || otp4Controller.text.isEmpty;
   }
 
   Future<void> sendResetEmail(BuildContext context, String email) async {
@@ -117,14 +111,33 @@ class _OtpScreenState extends State<OtpScreen> {
         builder: (BuildContext dialogContext) {
           return AlertDialog(
             title: Text('Success'),
-            backgroundColor: ColorsTheme.white,
-            content: Text('Reset password email has been sent to $email'),
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            content: RichText(
+              text: TextSpan(
+                style: TypographyTheme.heading3(
+                  fontWeight: FontWeight.w500,
+                  color: ColorsTheme.grey,
+                ),
+                children: [
+                  const TextSpan(
+                    text: 'Reset password email has been sent to ',
+                  ),
+                  TextSpan(
+                    text: '${email}',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ],
+              ),
+            ),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed('/login');
                 },
-                child: Text('OK'),
+                child: Text(
+                  'OK',
+                  style: TextStyle(color: ColorsTheme.primary),
+                ),
               ),
             ],
           );
@@ -153,17 +166,14 @@ class _OtpScreenState extends State<OtpScreen> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(Icons.arrow_back_ios_new),
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: Theme.of(context).iconTheme.color,
+          ),
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.grey,
-            width: 0.2,
-          ),
-        ),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -179,19 +189,17 @@ class _OtpScreenState extends State<OtpScreen> {
                   color: ColorsTheme.grey,
                 ),
                 children: [
-                  TextSpan(
+                  const TextSpan(
                     text: 'An Authentication code has been sent to ',
                   ),
                   TextSpan(
                     text: '${widget.userEmail}',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -205,27 +213,21 @@ class _OtpScreenState extends State<OtpScreen> {
             ButtonWidget(
               text: "Continue",
               disable: checkInput(),
-              bgColor: ColorsTheme.purple,
+              bgColor: ColorsTheme.primary,
               textColor: ColorsTheme.white,
               onPressed: disableButton() || checkInput()
                   ? null
                   : () async {
-                      if (await widget.myauth.verifyOTP(
-                              otp: otp1Controller.text +
-                                  otp2Controller.text +
-                                  otp3Controller.text +
-                                  otp4Controller.text) ==
+                      if (await widget.myauth.verifyOTP(otp: otp1Controller.text + otp2Controller.text + otp3Controller.text + otp4Controller.text) ==
                           true) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text("OTP is verified"),
                         ));
 
                         // Gửi email reset password khi OTP được xác nhận
                         await sendResetEmail(context, widget.userEmail);
                       } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text("Invalid OTP"),
                         ));
                       }
@@ -242,15 +244,12 @@ class _OtpScreenState extends State<OtpScreen> {
                     children: [
                       TextSpan(
                         text: "Code Sent. Resend Code in ",
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                       TextSpan(
-                        text:
-                            "${(_remainingTime ~/ 60).toString().padLeft(2, '0')}:${(_remainingTime % 60).toString().padLeft(2, '0')}",
+                        text: "${(_remainingTime ~/ 60).toString().padLeft(2, '0')}:${(_remainingTime % 60).toString().padLeft(2, '0')}",
                         style: TextStyle(
-                          color: Colors.purple,
+                          color: ColorsTheme.primary,
                         ),
                       ),
                     ],

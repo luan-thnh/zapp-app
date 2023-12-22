@@ -25,19 +25,18 @@ class _StoryScreenState extends State<StoryScreen> {
     final authService = Provider.of<AuthService>(context, listen: false);
 
     return Scaffold(
-      appBar: const AppBarLayout(
+      appBar: AppBarLayout(
         avatarUrl: ImageUrls.avatarDefault,
         isIconEdit: false,
         iconFirst: FaIcon(
           FontAwesomeIcons.film,
-          color: ColorsTheme.black,
+          color: Theme.of(context).iconTheme.color,
           size: 20,
         ),
         title: 'Story',
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: const BoxDecoration(color: ColorsTheme.white),
         child: StreamBuilder(
           stream: authService.findAllUsers(),
           builder: (context, snapshot) {
@@ -61,20 +60,20 @@ class _StoryScreenState extends State<StoryScreen> {
                       children: [
                         Text(
                           'Share a Story',
-                          style: TypographyTheme.heading2(),
+                          style: Theme.of(context).textTheme.headline2,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
                           "Share photo, video, and more for 24 hours. When you and your friends  share stories, they'll show up here",
-                          style: TypographyTheme.text1(),
+                          style: Theme.of(context).textTheme.bodyText2,
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        ButtonWidget(text: 'ADD STORY', disable: false),
+                        const ButtonWidget(text: 'ADD STORY', disable: false),
                       ],
                     ),
                   );
