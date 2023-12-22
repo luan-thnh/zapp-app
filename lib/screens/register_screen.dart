@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:messenger/constants/image_urls.dart';
 import 'package:messenger/screens/registerInfo_screen.dart';

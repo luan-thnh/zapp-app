@@ -274,93 +274,82 @@ class _RegisterInfoScreenState extends State<RegisterInfoScreen> {
                 )),
             child: ListView(
               shrinkWrap: true,
-              padding: EdgeInsets.only(top: mq.height * .01, bottom: mq.height * .07, left: 20, right: 20),
+              padding: EdgeInsets.only(top: mq.height * .01, bottom: mq.height * .07),
               children: [
                 //buttons
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      decoration: BoxDecoration(color: ColorsTheme.lightDark, borderRadius: BorderRadius.circular(999)),
+                      decoration: BoxDecoration(color: ColorsTheme.grey, borderRadius: BorderRadius.circular(999)),
                       child: const SizedBox(
-                        width: 40,
-                        height: 5,
+                        width: 32,
+                        height: 3,
                       ),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     //pick from gallery button
-                    InkWell(
-                      child: const Row(
-                        children: [
-                          Icon(
-                            Icons.image,
-                            size: 27,
-                            color: ColorsTheme.black,
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            'Choose a profile picture',
-                            style: TextStyle(color: ColorsTheme.black, fontSize: 18),
-                          )
-                        ],
-                      ),
-                      onTap: () async {
-                        final ImagePicker picker = ImagePicker();
-
-                        // Pick an image
-                        final XFile? image = await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
-                        if (image != null) {
-                          setState(() {
-                            _image = image.path;
-                          });
-                          authService.updateProfilePicture(File(_image!));
-                          // for hiding bottom sheet
-                          Navigator.pop(context);
-                        }
-                      },
-                    ),
-
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    //take picture from camera button
-                    InkWell(
+                    Card(
+                      elevation: 0,
+                      color: ColorsTheme.white,
+                      child: ListTile(
                         onTap: () async {
                           final ImagePicker picker = ImagePicker();
 
                           // Pick an image
-                          final XFile? image = await picker.pickImage(source: ImageSource.camera, imageQuality: 80);
+                          final XFile? image = await picker.pickImage(source: ImageSource.gallery, imageQuality: 80);
                           if (image != null) {
                             setState(() {
                               _image = image.path;
                             });
-
                             authService.updateProfilePicture(File(_image!));
-
                             // for hiding bottom sheet
                             Navigator.pop(context);
                           }
                         },
-                        child: const Row(
-                          children: [
-                            Icon(
-                              Icons.camera_alt,
-                              size: 27,
-                              color: ColorsTheme.black,
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Text(
-                              'Take a profile picture',
-                              style: TextStyle(color: ColorsTheme.black, fontSize: 18),
-                            )
-                          ],
-                        )),
+                        leading: const Icon(
+                          Icons.image,
+                          size: 25,
+                          color: ColorsTheme.blackGray,
+                        ),
+                        title: Text(
+                          'Choose a profile picture',
+                          style: TypographyTheme.text1(),
+                        ),
+                      ),
+                    ),
+                    Card(
+                      elevation: 0,
+                      color: ColorsTheme.white,
+                      child: ListTile(
+                          onTap: () async {
+                            final ImagePicker picker = ImagePicker();
+
+                            // Pick an image
+                            final XFile? image = await picker.pickImage(source: ImageSource.camera, imageQuality: 80);
+                            if (image != null) {
+                              setState(() {
+                                _image = image.path;
+                              });
+
+                              authService.updateProfilePicture(File(_image!));
+
+                              // for hiding bottom sheet
+                              Navigator.pop(context);
+                            }
+                          },
+                          leading: const Icon(
+                            Icons.camera_alt,
+                            size: 25,
+                            color: ColorsTheme.blackGray,
+                          ),
+                          title: Text(
+                            'Take a profile picture',
+                            style: TypographyTheme.text1(),
+                          )),
+                    ),
                   ],
                 )
               ],
