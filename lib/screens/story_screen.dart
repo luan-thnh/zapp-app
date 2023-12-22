@@ -17,12 +17,12 @@ class _StoryScreenState extends State<StoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarLayout(
+      appBar: AppBarLayout(
         avatarUrl: ImageUrls.avatarDefault,
         isIconEdit: false,
         iconFirst: FaIcon(
           FontAwesomeIcons.film,
-          color: ColorsTheme.black,
+          color: Theme.of(context).iconTheme.color,
           size: 20,
         ),
         title: 'Story',

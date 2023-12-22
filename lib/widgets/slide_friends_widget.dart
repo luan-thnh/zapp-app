@@ -33,11 +33,11 @@ class SlideFriendsWidget extends StatelessWidget {
                   Container(
                     width: 56,
                     height: 56,
-                    decoration: BoxDecoration(color: ColorsTheme.light, borderRadius: BorderRadius.circular(9999)),
-                    child: const Icon(
+                    decoration: BoxDecoration(color: Theme.of(context).colorScheme.secondary, borderRadius: BorderRadius.circular(9999)),
+                    child: Icon(
                       Icons.video_call_rounded,
                       size: 32,
-                      color: ColorsTheme.blackGray,
+                      color: Theme.of(context).iconTheme.color,
                     ),
                   ),
                   const SizedBox(
@@ -74,27 +74,27 @@ class SlideFriendItem extends StatelessWidget {
     await showMenu(
       context: context,
       position: RelativeRect.fromRect(tapPosition & const Size(40, 40), Offset.zero & overlay.size),
-      color: ColorsTheme.white,
-      surfaceTintColor: ColorsTheme.white,
-      shadowColor: ColorsTheme.light,
+      color: Theme.of(context).scaffoldBackgroundColor,
+      surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+      shadowColor: Theme.of(context).colorScheme.secondary,
       elevation: .6,
       items: [
         PopupMenuItem(
           child: Text(
             "View personal page",
-            style: TypographyTheme.text2(),
+            style: Theme.of(context).textTheme.bodyText2,
           ),
         ),
         PopupMenuItem(
           child: Text(
             "Share contact information",
-            style: TypographyTheme.text2(),
+            style: Theme.of(context).textTheme.bodyText2,
           ),
         ),
         PopupMenuItem(
           child: Text(
             "Hide contacts",
-            style: TypographyTheme.text2(),
+            style: Theme.of(context).textTheme.bodyText2,
           ),
         ),
       ],

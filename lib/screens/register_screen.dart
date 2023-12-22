@@ -76,6 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
+        iconTheme: Theme.of(context).iconTheme,
       ),
       body: SingleChildScrollView(
         child: Container(

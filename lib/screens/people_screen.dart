@@ -17,11 +17,11 @@ class _PeopleScreenState extends State<PeopleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarLayout(
+      appBar: AppBarLayout(
         avatarUrl: ImageUrls.avatarDefault,
         iconFirst: FaIcon(
           FontAwesomeIcons.solidAddressBook,
-          color: ColorsTheme.black,
+          color: Theme.of(context).iconTheme.color,
           size: 20,
         ),
         title: 'People',

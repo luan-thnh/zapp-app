@@ -30,52 +30,52 @@ class ItemChatUser extends StatelessWidget {
 
     List<Map<String, dynamic>> sheetList = [
       {
-        "icon": const FaIcon(
+        "icon": FaIcon(
           FontAwesomeIcons.trash,
-          color: ColorsTheme.blackGray,
+          color: Theme.of(context).iconTheme.color,
           size: 20,
         ),
-        "title": Text('Delete', style: TypographyTheme.text1())
+        "title": Text('Delete', style: Theme.of(context).textTheme.bodyText1)
       },
       {
-        "icon": const FaIcon(
+        "icon": FaIcon(
           FontAwesomeIcons.solidBellSlash,
-          color: ColorsTheme.blackGray,
+          color: Theme.of(context).iconTheme.color,
           size: 20,
         ),
-        "title": Text('Turn off', style: TypographyTheme.text1())
+        "title": Text('Turn off', style: Theme.of(context).textTheme.bodyText1)
       },
       {
-        "icon": const FaIcon(
+        "icon": FaIcon(
           FontAwesomeIcons.userGroup,
-          color: ColorsTheme.blackGray,
+          color: Theme.of(context).iconTheme.color,
           size: 20,
         ),
-        "title": Text('Create a chat group with ${user.lastName} ${user.firstName}', maxLines: 1, style: TypographyTheme.text1())
+        "title": Text('Create a chat group with ${user.lastName} ${user.firstName}', maxLines: 1, style: Theme.of(context).textTheme.bodyText1)
       },
       {
-        "icon": const Icon(
+        "icon": Icon(
           Icons.bubble_chart_rounded,
-          color: ColorsTheme.blackGray,
+          color: Theme.of(context).iconTheme.color,
           size: 20,
         ),
-        "title": Text('Open the chat bubble', style: TypographyTheme.text1())
+        "title": Text('Open the chat bubble', style: Theme.of(context).textTheme.bodyText1)
       },
       {
-        "icon": const Icon(
+        "icon": Icon(
           Icons.mark_email_unread_rounded,
-          color: ColorsTheme.blackGray,
+          color: Theme.of(context).iconTheme.color,
           size: 20,
         ),
-        "title": Text('Mark as unread', style: TypographyTheme.text1())
+        "title": Text('Mark as unread', style: Theme.of(context).textTheme.bodyText1)
       },
       {
-        "icon": const FaIcon(
+        "icon": FaIcon(
           FontAwesomeIcons.circleMinus,
-          color: ColorsTheme.blackGray,
+          color: Theme.of(context).iconTheme.color,
           size: 20,
         ),
-        "title": Text('Block', style: TypographyTheme.text1())
+        "title": Text('Block', style: Theme.of(context).textTheme.bodyText1)
       },
     ];
 
@@ -86,9 +86,9 @@ class ItemChatUser extends StatelessWidget {
           constraints: BoxConstraints(
             maxHeight: mq.height * 0.5,
           ),
-          decoration: const BoxDecoration(
-            color: ColorsTheme.white,
-            borderRadius: BorderRadius.only(
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius: const BorderRadius.only(
               topRight: Radius.circular(32),
               topLeft: Radius.circular(32),
             ),
@@ -111,7 +111,7 @@ class ItemChatUser extends StatelessWidget {
                   children: sheetList.map((item) {
                     return Card(
                       elevation: 0,
-                      color: ColorsTheme.white,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       child: ListTile(
                         onTap: () {},
                         leading: item['icon'],
@@ -136,7 +136,7 @@ class ItemChatUser extends StatelessWidget {
       children: [
         Card(
           elevation: 0,
-          color: ColorsTheme.white,
+          color: Theme.of(context).scaffoldBackgroundColor,
           child: ListTile(
             onLongPress: () {
               _showModalBottomSheet(context);
@@ -180,7 +180,10 @@ class ItemChatUser extends StatelessWidget {
                       ))
               ],
             ),
-            title: Text('${user.lastName} ${user.firstName}'),
+            title: Text(
+              '${user.lastName} ${user.firstName}',
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
             subtitle: Row(
               children: [
                 Container(
@@ -191,13 +194,13 @@ class ItemChatUser extends StatelessWidget {
                     user.description,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TypographyTheme.text2(color: ColorsTheme.blackGray),
+                    style: TypographyTheme.text2(color: Theme.of(context).colorScheme.inversePrimary),
                   ),
                 ),
                 Text(
                   " · 23:42",
                   overflow: TextOverflow.ellipsis,
-                  style: TypographyTheme.text2(color: ColorsTheme.blackGray),
+                  style: TypographyTheme.text2(color: Theme.of(context).colorScheme.inversePrimary),
                 )
               ],
             ),

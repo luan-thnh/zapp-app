@@ -98,6 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
+        iconTheme: Theme.of(context).iconTheme,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -160,10 +161,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             Positioned(
                               child: Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                                decoration: const BoxDecoration(
-                                  color: ColorsTheme.white,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).scaffoldBackgroundColor,
                                 ),
-                                child: const Text('Or', style: TextStyle(color: ColorsTheme.black)),
+                                child: Text('Or', style: Theme.of(context).textTheme.bodyText2),
                               ),
                             ),
                           ],
@@ -173,8 +174,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           disable: false,
                           text: 'Sign up with Google',
                           icon: Image.asset(ImageUrls.googleIcon, width: 24),
-                          bgColor: ColorsTheme.light,
-                          textColor: ColorsTheme.black,
+                          bgColor: Theme.of(context).colorScheme.secondary,
+                          textColor: Theme.of(context).colorScheme.tertiary,
                           onPressed: _handleSignInWithGoogle,
                         ),
                         const SizedBox(height: 8),
@@ -182,8 +183,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           disable: false,
                           text: 'Sign up with Facebook',
                           icon: Image.asset(ImageUrls.facebookIcon, width: 24),
-                          bgColor: ColorsTheme.light,
-                          textColor: ColorsTheme.black,
+                          bgColor: Theme.of(context).colorScheme.secondary,
+                          textColor: Theme.of(context).colorScheme.tertiary,
                           onPressed: _handleSignInWithFacebook,
                         ),
                         const SizedBox(height: 16),
