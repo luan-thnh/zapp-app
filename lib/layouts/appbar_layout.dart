@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:messenger/api/apis.dart';
 import 'package:messenger/models/chat_user_model.dart';
+import 'package:messenger/screens/account_screen.dart';
 import 'package:messenger/services/auth/auth_service.dart';
 import 'package:messenger/theme/colors_theme.dart';
 import 'package:messenger/theme/typography_theme.dart';
@@ -47,31 +48,9 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
       flexibleSpace: StreamBuilder(
         stream: APIs.fireStore.collection('users').doc(authService.user.uid).snapshots(),
         builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Text('Error');
-          }
+          if (snapshot.hasData && snapshot.data!.exists) {
+            ChatUserModel currentUser = ChatUserModel.fromJson(snapshot.data!.data()!);
 
-<<<<<<< HEAD
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressGradient();
-          }
-
-          ChatUserModel currentUser = ChatUserModel.fromJson(snapshot.data!.data()!);
-
-          return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        InkWell(
-                          customBorder: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(9999),
-=======
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               alignment: Alignment.bottomCenter,
@@ -87,67 +66,56 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
                             customBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(9999),
                             ),
-                            onTap: onTapAvatar,
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => AccountScreen(user: currentUser)));
+                            },
                             child: AvatarWidget(avatarUrl: currentUser.avatar, width: 48, height: 48),
->>>>>>> b75f606 (feat: zapp-007/create-chat-user-list)
                           ),
-                          onTap: onTapAvatar,
-                          child: AvatarWidget(avatarUrl: currentUser.avatar, width: 48, height: 48),
-                        ),
-                        if (quantityNotify != null)
-                          Positioned(
-                            top: 5,
-                            right: -10,
-                            child: Container(
-                              padding: const EdgeInsets.all(3.0),
-                              decoration: BoxDecoration(
-                                color: ColorsTheme.white,
-                                borderRadius: BorderRadius.circular(9999), // Adjusted border radius
-                              ),
+                          if (quantityNotify != null)
+                            Positioned(
+                              top: 5,
+                              right: -10,
                               child: Container(
-                                padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+                                padding: const EdgeInsets.all(3.0),
                                 decoration: BoxDecoration(
-                                  color: ColorsTheme.red,
+                                  color: ColorsTheme.white,
                                   borderRadius: BorderRadius.circular(9999), // Adjusted border radius
                                 ),
-                                child: Text(
-                                  '$quantityNotify+',
-                                  style: const TextStyle(color: ColorsTheme.white, fontWeight: FontWeight.w700, fontSize: 8),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+                                  decoration: BoxDecoration(
+                                    color: ColorsTheme.red,
+                                    borderRadius: BorderRadius.circular(9999), // Adjusted border radius
+                                  ),
+                                  child: Text(
+                                    '$quantityNotify+',
+                                    style: const TextStyle(color: ColorsTheme.white, fontWeight: FontWeight.w700, fontSize: 8),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-<<<<<<< HEAD
-                      ],
-                    ),
-                    const SizedBox(width: 24),
-                    Text(title, style: TypographyTheme.heading3())
-                  ],
-                ),
-                Row(
-                  children: [
-                    IconButtonWidget(
-                      onPressed: onPressedIcon,
-                      icon: iconFirst,
-                      bgColor: ColorsTheme.light,
-                    ),
-                    if (isIconEdit) const SizedBox(width: 12),
-                    if (isIconEdit)
+                        ],
+                      ),
+                      const SizedBox(width: 24),
+                      Text(title, style: TypographyTheme.heading3())
+                    ],
+                  ),
+                  Row(
+                    children: [
                       IconButtonWidget(
-                        onPressed: () {},
-                        icon: const FaIcon(
-                          FontAwesomeIcons.solidPenToSquare,
-                          color: ColorsTheme.black,
-                          size: 20,
-                        ),
+                        onPressed: onPressedIcon,
+                        icon: iconFirst,
                         bgColor: ColorsTheme.light,
-                      )
-                  ],
-                ),
-              ],
-            ),
-          );
-=======
+                      ),
+                      if (isIconEdit) const SizedBox(width: 12),
+                      if (isIconEdit)
+                        IconButtonWidget(
+                          onPressed: () {},
+                          icon: const FaIcon(
+                            FontAwesomeIcons.solidPenToSquare,
+                            color: ColorsTheme.black,
+                            size: 20,
+                          ),
                           bgColor: ColorsTheme.light,
                         )
                     ],
@@ -158,7 +126,6 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
           }
           return Container();
 
->>>>>>> 8e23d34 (feat/hungdd: create register Info User)
           // Ví dụ: print(currentUser.firstName);
         },
       ),
