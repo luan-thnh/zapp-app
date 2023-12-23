@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:messenger/constants/image_urls.dart';
 import 'package:messenger/layouts/appbar_layout.dart';
-import 'package:messenger/layouts/navigator_layout.dart';
 import 'package:messenger/models/chat_user_model.dart';
 import 'package:messenger/services/auth/auth_service.dart';
 import 'package:messenger/theme/colors_theme.dart';
 import 'package:messenger/theme/typography_theme.dart';
-import 'package:messenger/utils/connect_internet_util.dart';
 import 'package:messenger/widgets/circular_progress_gradient.dart';
 import 'package:provider/provider.dart';
 
@@ -96,7 +94,8 @@ class _PeopleScreenState extends State<PeopleScreen> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
+                    Container(
+                      margin: const EdgeInsets.only(top: 12, bottom: 8),
                       padding: const EdgeInsets.symmetric(horizontal: 26),
                       child: Text(
                         'Đang hoạt động ($countIsOnline)',
