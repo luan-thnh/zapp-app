@@ -26,6 +26,7 @@ dependencies:
   cached_network_image: ^3.3.0
   # For accessing Firebase Storage (for uploading files)
   firebase_storage: ^11.5.1
+  email_otp: ^2.1.1
 
 dev_dependencies:
   flutter_test:
