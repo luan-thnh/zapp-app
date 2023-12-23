@@ -12,8 +12,6 @@ import 'package:provider/provider.dart';
 
 import '../theme/typography_theme.dart';
 
-final _formKey = GlobalKey<FormState>();
-
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
@@ -26,6 +24,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late TextEditingController _phoneNumberOrEmailController;
   late TextEditingController _rePasswordController;
   late TextEditingController _passwordController;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -47,11 +47,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
     DialogsUtil.showProgressBar(context);
 
     try {
-      authService.signUpWithEmailAndPassword(_phoneNumberOrEmailController.text, _passwordController.text).then((user) async {
+      authService
+          .signUpWithEmailAndPassword(
+              _phoneNumberOrEmailController.text, _passwordController.text)
+          .then((user) async {
         if (user != null) {
-          await authService.createUserEmail(_phoneNumberOrEmailController.text).then((value) {
+          await authService
+              .createUserEmail(_phoneNumberOrEmailController.text)
+              .then((value) {
             Navigator.pop(context);
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const RegisterInfoScreen()));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (_) => const RegisterInfoScreen()));
           });
         }
       }).catchError(
@@ -69,7 +75,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
-    String? validationError = ValidateFieldUtil.validateRePassword(_rePasswordController.text, _passwordController.text);
+    String? validationError = ValidateFieldUtil.validateRePassword(
+        _rePasswordController.text, _passwordController.text);
 
     return Scaffold(
       appBar: AppBar(
@@ -113,7 +120,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: _phoneNumberOrEmailController,
                           obscureText: false,
                           hintText: 'Phone Number or Email',
-                          validator: ValidateFieldUtil.validatePhoneNumberOrEmail,
+                          validator:
+                              ValidateFieldUtil.validatePhoneNumberOrEmail,
                         ),
                         InputControlWidget(
                           controller: _passwordController,

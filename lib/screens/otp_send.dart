@@ -2,9 +2,11 @@ import 'dart:async';
 import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messenger/screens/otp_confirmation_screen.dart';
 import 'package:messenger/theme/colors_theme.dart';
 import 'package:messenger/theme/typography_theme.dart';
+import 'package:messenger/widgets/button_widget.dart';
 
 class OtpInput extends StatelessWidget {
   final TextEditingController otpController;
@@ -79,7 +81,7 @@ class _OtpScreenState extends State<OtpScreen> {
         if (_remainingTime == 0) {
           setState(() {
             timer.cancel();
-            _isButtonDisabled = true; // Khóa nút "Continue"
+            _isButtonDisabled = true;
           });
         } else {
           setState(() {
@@ -98,6 +100,49 @@ class _OtpScreenState extends State<OtpScreen> {
 
   bool disableButton() {
     return _isButtonDisabled || _remainingTime <= 0;
+  }
+
+  bool checkInput() {
+    return otp1Controller.text.isEmpty ||
+        otp2Controller.text.isEmpty ||
+        otp3Controller.text.isEmpty ||
+        otp4Controller.text.isEmpty;
+  }
+
+  Future<void> sendResetEmail(BuildContext context, String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+      await showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            title: Text('Success'),
+            backgroundColor: ColorsTheme.white,
+            content: Text('Reset password email has been sent to $email'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/login');
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      print('Error sending reset email: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Failed to send reset password email',
+            style: TypographyTheme.text1(),
+          ),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
   }
 
   @override
@@ -158,52 +203,42 @@ class _OtpScreenState extends State<OtpScreen> {
               ],
             ),
             const SizedBox(height: 40),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: disableButton()
-                    ? null
-                    : () async {
-                        if (await widget.myauth.verifyOTP(
-                                otp: otp1Controller.text +
-                                    otp2Controller.text +
-                                    otp3Controller.text +
-                                    otp4Controller.text) ==
-                            true) {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("OTP is verified"),
-                          ));
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => OTPConfirmationScreen(),
-                            ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("Invalid OTP"),
-                          ));
-                        }
-                      },
-                style: ElevatedButton.styleFrom(
-                  primary: ColorsTheme.purple,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+            ButtonWidget(
+              text: "Continue",
+              disable: checkInput(),
+              bgColor: ColorsTheme.purple,
+              textColor: ColorsTheme.white,
+              onPressed: disableButton() || checkInput()
+                  ? null
+                  : () async {
+                      if (await widget.myauth.verifyOTP(
+                              otp: otp1Controller.text +
+                                  otp2Controller.text +
+                                  otp3Controller.text +
+                                  otp4Controller.text) ==
+                          true) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("OTP is verified"),
+                        ));
+
+                        // Gửi email reset password khi OTP được xác nhận
+                        await sendResetEmail(context, widget.userEmail);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OTPConfirmationScreen(),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Invalid OTP"),
+                        ));
+                      }
+
+                      return null;
+                    },
             ),
             const SizedBox(height: 32),
             Row(

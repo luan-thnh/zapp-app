@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:messenger/constants/image_urls.dart';
+import 'package:messenger/screens/forgot_password_screen.dart';
 import 'package:messenger/screens/home_screen.dart';
 import 'package:messenger/services/auth/auth_service.dart';
 import 'package:messenger/theme/colors_theme.dart';
@@ -9,8 +10,6 @@ import 'package:messenger/utils/validate_field_util.dart';
 import 'package:messenger/widgets/button_widget.dart';
 import 'package:messenger/widgets/input_control_widget.dart';
 import 'package:provider/provider.dart';
-
-final _formKey = GlobalKey<FormState>();
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -23,6 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
   late Size mq;
   late TextEditingController _phoneNumberOrEmailController;
   late TextEditingController _passwordController;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -146,7 +147,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 16),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => ForgotPasswordScreen()),
+                            );
+                          },
                           child: Text('Forgot password?',
                               style: TypographyTheme.heading5(
                                   color: ColorsTheme.primary)),
