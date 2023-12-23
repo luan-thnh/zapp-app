@@ -6,6 +6,8 @@ import 'package:messenger/layouts/navigator_layout.dart';
 import 'package:messenger/theme/colors_theme.dart';
 import 'package:messenger/theme/typography_theme.dart';
 
+import '../widgets/button_widget.dart';
+
 class PeopleScreen extends StatefulWidget {
   const PeopleScreen({super.key});
 
@@ -26,17 +28,33 @@ class _PeopleScreenState extends State<PeopleScreen> {
         ),
         title: 'People',
       ),
-      body: Container(
-        padding: const EdgeInsets.all(32),
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'People Screen',
-              style: TypographyTheme.heading2(),
-            ),
-          ],
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'No Active People',
+                style: TypographyTheme.heading2(),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                'You"ll see when  others are active here. You can also invite more friends  to join Messenger.',
+                style: TypographyTheme.text2(),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const ButtonWidget(
+                text: 'INVITE PEOPLE',
+                disable: false,
+              ),
+            ],
+          ),
         ),
       ),
     );
