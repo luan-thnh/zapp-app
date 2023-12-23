@@ -5,6 +5,7 @@ import 'package:messenger/layouts/appbar_layout.dart';
 import 'package:messenger/layouts/navigator_layout.dart';
 import 'package:messenger/theme/colors_theme.dart';
 import 'package:messenger/theme/typography_theme.dart';
+import 'package:messenger/widgets/button_widget.dart';
 
 class PeopleScreen extends StatefulWidget {
   const PeopleScreen({super.key});
@@ -33,9 +34,21 @@ class _PeopleScreenState extends State<PeopleScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'People Screen',
+              'Share a Story',
               style: TypographyTheme.heading2(),
             ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Share photo, video, and more for 24 hours. When you and your friends  share stories, they'll show up here",
+              style: TypographyTheme.text1(),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ButtonWidget(text: 'ADD STORY', disable: false),
           ],
         ),
       ),
