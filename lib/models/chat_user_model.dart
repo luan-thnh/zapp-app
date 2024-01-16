@@ -43,7 +43,7 @@ class ChatUserModel {
     email = json['email'] ?? '';
     avatar = json['avatar'] ?? '';
     description = json['description'] ?? '';
-    isOnline = json['is_online'] ?? '';
+    isOnline = json['is_online'] ?? false;
     token = json['token'] ?? '';
     lastActive = json['last_active'] ?? '';
     createdAt = json['created_at'] ?? '';
