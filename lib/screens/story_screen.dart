@@ -60,14 +60,14 @@ class _StoryScreenState extends State<StoryScreen> {
                       children: [
                         Text(
                           'Share a Story',
-                          style: Theme.of(context).textTheme.headline2,
+                          style: Theme.of(context).textTheme.displayMedium,
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         Text(
                           "Share photo, video, and more for 24 hours. When you and your friends  share stories, they'll show up here",
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyMedium,
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(
@@ -79,7 +79,7 @@ class _StoryScreenState extends State<StoryScreen> {
                   );
                 }
 
-                return Column(
+                return const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [],
                 );
