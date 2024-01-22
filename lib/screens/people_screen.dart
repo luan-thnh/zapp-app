@@ -11,6 +11,8 @@ import 'package:messenger/utils/connect_internet_util.dart';
 import 'package:messenger/widgets/circular_progress_gradient.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/button_widget.dart';
+
 class PeopleScreen extends StatefulWidget {
   const PeopleScreen({super.key});
 
@@ -54,13 +56,48 @@ class _PeopleScreenState extends State<PeopleScreen> {
 
                 list = data?.map((e) => ChatUserModel.fromJson(e.data())).toList() ?? [];
 
+                if (list.isEmpty) {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                              Text(
+                                'No Active People',
+                                style: TypographyTheme.heading2(),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'You"ll see when  others are active here. You can also invite more friends  to join Messenger.',
+                                style: TypographyTheme.text2(),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const ButtonWidget(
+                                text: 'INVITE PEOPLE',
+                                disable: false,
+                              ),
+                            ]),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+
                 countIsOnline = list.where((item) => item.isOnline == true).length;
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 26),
                       child: Text(
                         'Đang hoạt động ($countIsOnline)',
                         textAlign: TextAlign.start,
@@ -79,7 +116,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
                             margin: EdgeInsets.zero,
                             child: ListTile(
                               onTap: () {},
-                              contentPadding: const EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 2, horizontal: 24),
                               leading: Stack(clipBehavior: Clip.none, children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
@@ -114,48 +151,6 @@ class _PeopleScreenState extends State<PeopleScreen> {
                             ),
                           );
                         },
-                        // children: doubledList.map((item) {
-                        //   return Card(
-                        //     elevation: 0,
-                        //     color: Colors.transparent,
-                        //     margin: EdgeInsets.zero,
-                        //     child: ListTile(
-                        //       onTap: () {},
-                        //       contentPadding: const EdgeInsets.symmetric(vertical: 2, horizontal: 15),
-                        //       leading: Stack(clipBehavior: Clip.none, children: [
-                        //         ClipRRect(
-                        //           borderRadius: BorderRadius.circular(50),
-                        //           child: Image(
-                        //             image: NetworkImage(item.avatar.isNotEmpty ? item.avatar : ImageUrls.avatarDefault),
-                        //             width: 42,
-                        //             height: 42,
-                        //             fit: BoxFit.cover,
-                        //           ),
-                        //         ),
-                        //         Positioned(
-                        //           bottom: -5,
-                        //           right: 0,
-                        //           child: Container(
-                        //             height: 16,
-                        //             width: 16,
-                        //             padding: const EdgeInsets.all(3),
-                        //             decoration: const BoxDecoration(shape: BoxShape.circle, color: ColorsTheme.white),
-                        //             child: Container(
-                        //               decoration: const BoxDecoration(
-                        //                 shape: BoxShape.circle,
-                        //                 color: ColorsTheme.green,
-                        //               ),
-                        //             ),
-                        //           ),
-                        //         )
-                        //       ]),
-                        //       title: Text(
-                        //         item.firstName + item.lastName ?? '',
-                        //         style: TypographyTheme.text2(color: ColorsTheme.black),
-                        //       ),
-                        //     ),
-                        //   );
-                        // }).toList(),
                       ),
                     ),
                   ],
