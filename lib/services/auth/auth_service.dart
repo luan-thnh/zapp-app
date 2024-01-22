@@ -25,6 +25,10 @@ class AuthService extends ChangeNotifier {
     return APIs.fireStore.collection('users').where('id', isNotEqualTo: user.uid).snapshots();
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> findUsersOnline() {
+    return APIs.fireStore.collection('users').where('id', isNotEqualTo: user.uid).where('isOnline', isEqualTo: true).snapshots();
+  }
+
   // sign in user with email and password
   Future<UserCredential> signInWithEmailAndPassword(String email, String password) async {
     try {
@@ -184,7 +188,7 @@ class AuthService extends ChangeNotifier {
 
   Future<void> updateUserInfo(String firstName, String lastName, String birthday, String gender) async {
     await APIs.fireStore.collection('users').doc(user.uid).update({
-      'username': firstName + ' ' + lastName,
+      'username': '$firstName $lastName',
       'first_name': firstName,
       'last_name': lastName,
       'birthday': birthday,
