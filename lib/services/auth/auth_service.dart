@@ -33,12 +33,10 @@ class AuthService extends ChangeNotifier {
   Future<UserCredential> signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential userCredential = await APIs.firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-
       // // add a new document for the user in users collection if it doesn't already exists
       ChatUserModel user = ChatUserModel.fromUserCredential(userCredential.user);
 
       APIs.fireStore.collection('users').doc(userCredential.user!.uid).set(user.toJson(), SetOptions(merge: true));
-
       return userCredential;
     }
 
