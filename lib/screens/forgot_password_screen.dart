@@ -34,11 +34,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   Future<void> _submitEmail(BuildContext context) async {
     if (isSendingEmail) {
-      return; // Nếu đang gửi email, không làm gì cả
+      return;
     }
 
     setState(() {
-      isSendingEmail = true; // Đánh dấu rằng đang gửi email
+      isSendingEmail = true;
     });
 
     try {
@@ -51,11 +51,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           otpType: OTPType.digitsOnly,
         );
         if (await myauth.sendOTP()) {
+          if (!context.mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text("OTP has been sent"),
             ),
           );
+
+          if (!context.mounted) return;
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -66,6 +69,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
           );
         } else {
+          if (!context.mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text("Oops, OTP send failed"),
@@ -81,7 +85,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       }
     } finally {
       setState(() {
-        isSendingEmail = false; // Đánh dấu rằng việc gửi email đã hoàn thành
+        isSendingEmail = false;
       });
     }
   }
@@ -96,19 +100,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop(); // Quay lại trang trước đó
+            Navigator.of(context).pop();
           },
-          icon: const Icon(Icons.arrow_back_ios_new),
-        ),
-      ),
-      backgroundColor: Colors.white,
-      body: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.grey, // Màu viền bạn có thể thay đổi tại đây
-            width: 0.2,
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: Theme.of(context).iconTheme.color,
           ),
         ),
+      ),
+      body: Container(
         padding: const EdgeInsets.all(20),
         child: Form(
           key: _key,
@@ -119,7 +119,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 'Forgot password?',
                 style: TypographyTheme.headingBig(fontWeight: FontWeight.w900),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 'Enter your email address or phone number. If an account exists, you will get an activation code.',
                 style: TypographyTheme.heading3(
@@ -127,28 +127,26 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   color: ColorsTheme.grey,
                 ),
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               InputControlWidget(
                 controller: emailController,
                 hintText: "Please enter your email",
                 obscureText: false,
                 validator: ValidateFieldUtil.validatePhoneNumberOrEmail,
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               TextButton(
                 onPressed: isSendingEmail
                     ? null
                     : () {
                         if (_key.currentState!.validate()) {
-                          print('object');
                           _submitEmail(context);
+                          emailController.text = '';
                         }
                       },
                 style: TextButton.styleFrom(
                     primary: ColorsTheme.primary,
-                    backgroundColor: isSendingEmail
-                        ? ColorsTheme.light
-                        : ColorsTheme.primary,
+                    backgroundColor: isSendingEmail ? ColorsTheme.light : ColorsTheme.primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.0),
                     ),
@@ -160,18 +158,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       const SizedBox(
                         width: 16,
                         height: 16,
-                        child: CircularProgressIndicator(
-                            color: ColorsTheme.lightDark),
+                        child: CircularProgressIndicator(color: ColorsTheme.lightDark),
                       ),
                     if (isSendingEmail) const SizedBox(width: 12),
                     Container(
                       alignment: Alignment.center,
                       child: Text(
                         'Continue',
-                        style: TypographyTheme.heading5(
-                            color: isSendingEmail
-                                ? ColorsTheme.lightDark
-                                : ColorsTheme.white),
+                        style: TypographyTheme.heading5(color: isSendingEmail ? ColorsTheme.lightDark : ColorsTheme.white),
                       ),
                     ),
                   ],

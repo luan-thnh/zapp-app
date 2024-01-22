@@ -19,14 +19,16 @@ class ConnectInternetUtil extends StatelessWidget {
 
           return SingleChildScrollView(
             child: Container(
-              color: ColorsTheme.white,
+              color: Theme.of(context).scaffoldBackgroundColor,
               child: Column(
-                mainAxisSize: MainAxisSize.min,
                 children: [
                   if (result == ConnectivityResult.none)
-                    Text(
-                      'disconnect...',
-                      style: TypographyTheme.text3(color: ColorsTheme.red),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 32),
+                      child: Text(
+                        'Waiting for connection...',
+                        style: TypographyTheme.text3(color: ColorsTheme.red),
+                      ),
                     ),
                   child
                 ],

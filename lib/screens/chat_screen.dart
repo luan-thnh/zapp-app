@@ -27,11 +27,11 @@ class _ChatScreenState extends State<ChatScreen> {
     final authService = Provider.of<AuthService>(context, listen: false);
 
     return Scaffold(
-      appBar: const AppBarLayout(
+      appBar: AppBarLayout(
         avatarUrl: ImageUrls.avatarDefault,
         iconFirst: FaIcon(
           FontAwesomeIcons.camera,
-          color: ColorsTheme.black,
+          color: Theme.of(context).iconTheme.color,
           size: 20,
         ),
         title: 'Chat',

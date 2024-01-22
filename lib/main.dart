@@ -5,6 +5,7 @@ import 'package:messenger/configs/routes_config.dart';
 import 'package:messenger/layouts/navigator_layout.dart';
 import 'package:messenger/screens/splash_screen.dart';
 import 'package:messenger/services/auth/auth_service.dart';
+import 'package:messenger/services/provider/theme_provider.dart';
 import 'package:messenger/theme/colors_theme.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,7 @@ void main() {
         MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => AuthService()),
+            ChangeNotifierProvider(create: (context) => ThemeProvider()),
           ],
           child: const MyApp(),
         ),
@@ -30,14 +32,14 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
       title: 'Zapp',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
-        fontFamily: 'Roboto',
-        useMaterial3: true,
-      ),
+      themeMode: themeProvider.themeMode,
+      theme: ColorsTheme.lightTheme,
+      darkTheme: ColorsTheme.darkTheme,
       initialRoute: '/',
       routes: routersConfig,
       home: const SplashScreen(),

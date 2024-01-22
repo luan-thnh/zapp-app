@@ -28,18 +28,18 @@ class _PeopleScreenState extends State<PeopleScreen> {
     final authService = Provider.of<AuthService>(context, listen: false);
 
     return Scaffold(
-      appBar: const AppBarLayout(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBarLayout(
         avatarUrl: ImageUrls.avatarDefault,
         iconFirst: FaIcon(
           FontAwesomeIcons.solidAddressBook,
-          color: ColorsTheme.black,
+          color: Theme.of(context).iconTheme.color,
           size: 20,
         ),
         title: 'People',
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
-        decoration: const BoxDecoration(color: ColorsTheme.white),
         child: StreamBuilder(
           stream: authService.findAllUsers(),
           builder: (context, snapshot) {
@@ -64,14 +64,14 @@ class _PeopleScreenState extends State<PeopleScreen> {
                             child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                               Text(
                                 'No Active People',
-                                style: TypographyTheme.heading2(),
+                                style: Theme.of(context).textTheme.headline2,
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
                               Text(
                                 'You"ll see when  others are active here. You can also invite more friends  to join Messenger.',
-                                style: TypographyTheme.text2(),
+                                style: Theme.of(context).textTheme.bodyText2,
                                 textAlign: TextAlign.center,
                               ),
                               const SizedBox(
@@ -145,7 +145,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
                               ]),
                               title: Text(
                                 '${item.firstName} ${item.lastName}' ?? '',
-                                style: TypographyTheme.text2(color: ColorsTheme.black),
+                                style: Theme.of(context).textTheme.bodyText2,
                               ),
                             ),
                           );

@@ -23,10 +23,11 @@ class InputControlWidget extends StatelessWidget {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
+      cursorColor: Theme.of(context).iconTheme.color,
       onTap: onTap,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: const TextStyle(color: ColorsTheme.greyLight, fontWeight: FontWeight.normal),
+        hintStyle: const TextStyle(color: ColorsTheme.greyLight, fontSize: 16, fontWeight: FontWeight.normal),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: borderColor, width: 1.0),
         ),

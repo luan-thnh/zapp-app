@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../theme/typography_theme.dart';
 
-final _formKey = GlobalKey<FormState>();
+final _formKey_2 = GlobalKey<FormState>();
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -76,6 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
+        iconTheme: Theme.of(context).iconTheme,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -98,7 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Form(
-                    key: _formKey,
+                    key: _formKey_2,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -133,7 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           disable: false,
                           text: 'Next',
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {
+                            if (_formKey_2.currentState!.validate()) {
                               _handleSignUpWithEmailAndPassword();
                             }
                           },
