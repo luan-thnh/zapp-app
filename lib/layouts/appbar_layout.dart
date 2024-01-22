@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:messenger/api/apis.dart';
 import 'package:messenger/models/chat_user_model.dart';
+import 'package:messenger/screens/account_screen.dart';
 import 'package:messenger/services/auth/auth_service.dart';
 import 'package:messenger/theme/colors_theme.dart';
 import 'package:messenger/theme/typography_theme.dart';
@@ -66,7 +67,9 @@ class AppBarLayout extends StatelessWidget implements PreferredSizeWidget {
                             customBorder: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(9999),
                             ),
-                            onTap: onTapAvatar,
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => const AccountScreen()));
+                            },
                             child: AvatarWidget(avatarUrl: currentUser.avatar, width: 48, height: 48),
                           ),
                           if (quantityNotify != null)

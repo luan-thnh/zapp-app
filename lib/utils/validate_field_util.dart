@@ -56,12 +56,22 @@ class ValidateFieldUtil {
   }
 
   static String? validateBirthday(String? birth) {
-    int? year = int.parse(birth!.substring(0, 4));
+    try {
+      List<String> parts = birth!.split('/');
 
-    if (year + 7 > DateTime.now().year) {
-      return 'Invalid date of birth.';
-    } else {
-      return null;
+      int? day = int.parse(parts[0]);
+      int? month = int.parse(parts[1]);
+      int? year = int.parse(parts[2]);
+
+      DateTime birthDate = DateTime(year!, month!, day!);
+
+      if (birthDate.year + 7 > DateTime.now().year) {
+        return 'Invalid date of birth.';
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return 'Invalid date format.';
     }
   }
 }

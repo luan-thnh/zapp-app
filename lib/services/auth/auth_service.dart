@@ -70,7 +70,7 @@ class AuthService extends ChangeNotifier {
           email: email,
           avatar: ImageUrls.avatarDefault,
           description: 'Hey, I"m using Zapp!!',
-          isOnline: false,
+          isOnline: true,
           token: '',
           lastActive: time,
           createdAt: time,
@@ -100,7 +100,7 @@ class AuthService extends ChangeNotifier {
         email: myUser.toString(),
         avatar: ImageUrls.avatarDefault,
         description: 'Hey, I"m using Zapp!!',
-        isOnline: false,
+        isOnline: true,
         token: '',
         lastActive: time,
         createdAt: time,
@@ -192,6 +192,10 @@ class AuthService extends ChangeNotifier {
       'birthday': birthday,
       'gender': gender,
     });
+  }
+
+  Future<void> updateDarkMode(bool isDark) async {
+    await APIs.fireStore.collection('users').doc(user.uid).update({'is_dark': isDark});
   }
 
   //update profile picture of user
