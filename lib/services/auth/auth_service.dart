@@ -25,6 +25,79 @@ class AuthService extends ChangeNotifier {
     return APIs.fireStore.collection('users').where('id', isNotEqualTo: user.uid).snapshots();
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> getMyUsersId() {
+    return APIs.fireStore.collection('users').doc(user.uid).collection('friends').snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getResquestFriendId() {
+    return APIs.fireStore.collection('users').doc(user.uid).collection('resquestFriend').snapshots();
+  }
+
+  Future<void> acceptFriendRequest(String id, bool isDelete) async {
+    if (isDelete) {
+      await APIs.fireStore.collection('users').doc(id).collection('resquestFriend').doc(user.uid).delete();
+    } else {
+      await APIs.fireStore.collection('users').doc(id).collection('resquestFriend').doc(user.uid).set({});
+    }
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers(List<String> userIds) {
+    log('\nUserIds: $userIds');
+
+    return APIs.fireStore
+        .collection('users')
+        .where('id', whereIn: userIds.isEmpty ? [''] : userIds) //because empty list throws an error
+        // .where('id', isNotEqualTo: user.uid)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSuggestUsers(List<String> userIds, String uid) {
+    log('\nUserIds: $userIds');
+
+    return APIs.fireStore
+        .collection('users')
+        .where('id', whereNotIn: userIds.isEmpty ? [''] : [...userIds, uid]) //because empty list throws an error
+        // .where('id', isNotEqualTo: user.uid)
+        .snapshots();
+  }
+
+  Future<bool> unFriend(String id) async {
+    if (id.isNotEmpty) {
+      await APIs.fireStore.collection('users').doc(user.uid).collection('friends').doc(id).delete();
+      await APIs.fireStore.collection('users').doc(id).collection('friends').doc(user.uid).delete();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> deleteChatUser(String id) async {
+    if (id.isNotEmpty) {
+      await APIs.fireStore.collection('users').doc(user.uid).collection('resquestFriend').doc(id).delete();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // for adding an chat user for our conversation
+  Future<bool> addChatUser(String id) async {
+    final data = await APIs.fireStore.collection('users').where('id', isEqualTo: id).get();
+
+    if (data.docs.isNotEmpty && data.docs.first.id != user.uid) {
+      //user exists
+
+      APIs.fireStore.collection('users').doc(user.uid).collection('friends').doc(data.docs.first.id).set({});
+      APIs.fireStore.collection('users').doc(id).collection('friends').doc(user.uid).set({});
+      APIs.fireStore.collection('users').doc(user.uid).collection('resquestFriend').doc(id).delete();
+      return true;
+    } else {
+      // user doesn't exists
+
+      return false;
+    }
+  }
+
   Stream<QuerySnapshot<Map<String, dynamic>>> findUsersOnline() {
     return APIs.fireStore.collection('users').where('id', isNotEqualTo: user.uid).where('isOnline', isEqualTo: true).snapshots();
   }
@@ -214,33 +287,33 @@ class AuthService extends ChangeNotifier {
     //updating image in firebase database
     String avatar = await ref.getDownloadURL();
     await APIs.fireStore.collection('users').doc(user.uid).update({'avatar': avatar});
-
-    Future<List<FriendRequestModel>> fetchFriendRequests() async {
-      // Fetch friend requests from Firestore
-      QuerySnapshot querySnapshot = await APIs.fireStore.collection('friendRequests').get();
-
-      List<FriendRequestModel> friendRequests = [];
-
-      for (QueryDocumentSnapshot document in querySnapshot.docs) {
-        friendRequests.add(FriendRequestModel(
-          senderName: document['senderName'],
-        ));
-      }
-
-      return friendRequests;
-    }
-
-    Future<void> acceptFriendRequest(FriendRequestModel friendRequest) async {
-      // Add the friend to the user's friend list
-      // (You may need to adapt this based on your data structure)
-      await APIs.fireStore.collection('users').doc('currentUserId').collection('friends').add({'friendName': friendRequest.senderName});
-
-      // Delete the friend request
-      await APIs.fireStore.collection('friendRequests').where('senderName', isEqualTo: friendRequest.senderName).get().then((snapshot) {
-        for (QueryDocumentSnapshot document in snapshot.docs) {
-          document.reference.delete();
-        }
-      });
-    }
   }
+
+  Future<List<FriendRequestModel>> fetchFriendRequests() async {
+    // Fetch friend requests from Firestore
+    QuerySnapshot querySnapshot = await APIs.fireStore.collection('friendRequests').get();
+
+    List<FriendRequestModel> friendRequests = [];
+
+    for (QueryDocumentSnapshot document in querySnapshot.docs) {
+      friendRequests.add(FriendRequestModel(
+        senderName: document['senderName'],
+      ));
+    }
+
+    return friendRequests;
+  }
+
+  // Future<void> acceptFriendRequest(FriendRequestModel friendRequest) async {
+  //   // Add the friend to the user's friend list
+  //   // (You may need to adapt this based on your data structure)
+  //   await APIs.fireStore.collection('users').doc(user.uid).collection('friends').add({'friendName': friendRequest.senderName});
+  //
+  //   // Delete the friend request
+  //   await APIs.fireStore.collection('friendRequests').where('senderName', isEqualTo: friendRequest.senderName).get().then((snapshot) {
+  //     for (QueryDocumentSnapshot document in snapshot.docs) {
+  //       document.reference.delete();
+  //     }
+  //   });
+  // }
 }
