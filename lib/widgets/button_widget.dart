@@ -44,7 +44,7 @@ class ButtonWidget extends StatelessWidget {
             ),
           Container(
             alignment: Alignment.center,
-            width: mq.width * .5,
+            width: mq.width * .45,
             child: Text(
               isUppercase ? text : text,
               style: TypographyTheme.heading5(color: disable ? ColorsTheme.lightDark : textColor),

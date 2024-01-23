@@ -27,6 +27,7 @@ dependencies:
   # For accessing Firebase Storage (for uploading files)
   firebase_storage: ^11.5.1
   email_otp: ^2.1.1
+  grouped_list: ^5.1.2
 
 dev_dependencies:
   flutter_test:
