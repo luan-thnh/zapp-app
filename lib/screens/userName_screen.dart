@@ -38,92 +38,117 @@ class _UserNameScreenState extends State<UserNameScreen> {
     final authService = Provider.of<AuthService>(context, listen: false);
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          scrolledUnderElevation: 0,
-          title: Text(
-            'UserName',
-            style: TypographyTheme.heading3(),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            color: Theme.of(context).iconTheme.color,
           ),
-          actions: [
-            TextButton(
-                onPressed: () async {
-                  if (isChange) {
-                    await APIs.fireStore.collection('users').doc(widget.user.id).update({
-                      'username': _userNameController.text,
-                    });
-
-                    Navigator.pop(context);
-                  }
-                },
-                child: Text(
-                  'SAVE',
-                  style: TypographyTheme.heading4(color: isChange ? ColorsTheme.primary : ColorsTheme.grey),
-                ))
-          ],
         ),
-        body: StreamBuilder(
-          stream: APIs.fireStore.collection('users').doc(authService.user.uid).snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData && snapshot.data!.exists) {
-              ChatUserModel currentUser = ChatUserModel.fromJson(snapshot.data!.data()!);
+        title: Text(
+          'UserName',
+          style: Theme.of(context).textTheme.headline3,
+        ),
+        actions: [
+          TextButton(
+              onPressed: () async {
+                if (isChange) {
+                  await APIs.fireStore.collection('users').doc(widget.user.id).update({
+                    'username': _userNameController.text,
+                  });
 
-              return SingleChildScrollView(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  color: ColorsTheme.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextField(
-                        controller: _userNameController,
-                        maxLength: 30,
-                        onChanged: (value) {
-                          setState(() {
-                            isChange = true;
-                          });
-                        },
-                        decoration: InputDecoration(
-                          counterText: '${_userNameController.text.length}/30',
+                  Navigator.pop(context);
+                }
+              },
+              child: Text(
+                'SAVE',
+                style: TypographyTheme.heading4(color: isChange ? ColorsTheme.primary : ColorsTheme.grey),
+              ))
+        ],
+      ),
+      body: StreamBuilder(
+        stream: APIs.fireStore.collection('users').doc(authService.user.uid).snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data!.exists) {
+            ChatUserModel currentUser = ChatUserModel.fromJson(snapshot.data!.data()!);
+
+            return SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      controller: _userNameController,
+                      maxLength: 30,
+                      onChanged: (value) {
+                        setState(() {
+                          isChange = true;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Theme.of(context).scaffoldBackgroundColor,
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Theme.of(context).iconTheme.color as Color,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Text(
-                        'Your username will become part of the custom link. With this link, people can go to your Facebook profile or contact you on Zapp.',
-                        style: TypographyTheme.text3(),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Need help?',
-                              style: TypographyTheme.text3(),
-                            ),
-                            TextSpan(
-                              text: ' See tips for choosing a username.',
-                              style: TypographyTheme.text3(
-                                color: ColorsTheme.blue,
-                              ),
-                            ),
-                          ],
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Theme.of(context).iconTheme.color as Color,
+                          ),
                         ),
+                        border: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Theme.of(context).iconTheme.color as Color,
+                          ),
+                        ),
+                        counterStyle: TextStyle(color: Theme.of(context).iconTheme.color),
+                        counterText: '${_userNameController.text.length}/30',
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      'Your username will become part of the custom link. With this link, people can go to your Facebook profile or contact you on Zapp.',
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Need help?',
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                          TextSpan(
+                            text: ' See tips for choosing a username.',
+                            style: TypographyTheme.text3(
+                              color: ColorsTheme.blue,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              );
-            }
-            return Container();
-          },
-        ));
+              ),
+            );
+          }
+          return Container();
+        },
+      ),
+    );
   }
 }

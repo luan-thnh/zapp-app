@@ -160,9 +160,6 @@ class _ChattingScreenState extends State<ChattingScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      // const SizedBox(height: 16),
-
-                      // display list message item
                       Expanded(
                         child: StreamBuilder(
                           stream: authService.findAllMessages(widget.user),
@@ -436,7 +433,7 @@ class _ChattingScreenState extends State<ChattingScreen> {
                                 list.isNotEmpty ? list[0].firstName : widget.user.firstName,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(color: ColorsTheme.white, fontWeight: FontWeight.w500, fontSize: 16),
+                                style: TextStyle(color: Theme.of(context).iconTheme.color, fontWeight: FontWeight.w500, fontSize: 16),
                               ),
                             ),
                             Text(

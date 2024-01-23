@@ -34,6 +34,10 @@ class AuthService extends ChangeNotifier {
     return APIs.fireStore.collection('users').doc(user.uid).collection('friends').snapshots();
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> getFriendId(String userId) {
+    return APIs.fireStore.collection('users').doc(userId).collection('friends').snapshots();
+  }
+
   Stream<QuerySnapshot<Map<String, dynamic>>> getResquestFriendId() {
     return APIs.fireStore.collection('users').doc(user.uid).collection('resquestFriend').snapshots();
   }
@@ -74,6 +78,12 @@ class AuthService extends ChangeNotifier {
     } else {
       return false;
     }
+  }
+
+  Future<List<ChatUserModel>> getAllFriendById(List<String> listOfStrings) async {
+    return Future.wait(listOfStrings.map((userId) async {
+      return await findUserById(userId);
+    }));
   }
 
   Future<bool> deleteChatUser(String id) async {
