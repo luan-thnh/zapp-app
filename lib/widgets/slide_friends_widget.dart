@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:messenger/api/apis.dart';
 import 'package:messenger/models/chat_user_model.dart';
 import 'package:messenger/screens/chatting_screen.dart';
+import 'package:messenger/screens/profile_screen.dart';
 import 'package:messenger/theme/colors_theme.dart';
 import 'package:messenger/theme/typography_theme.dart';
 import 'package:messenger/widgets/avatar_widget.dart';
@@ -86,6 +87,9 @@ class SlideFriendItem extends StatelessWidget {
       elevation: .6,
       items: [
         PopupMenuItem(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (_) => ProfileScreen(user: user)));
+          },
           child: Text(
             "View personal page",
             style: Theme.of(context).textTheme.bodyMedium,
