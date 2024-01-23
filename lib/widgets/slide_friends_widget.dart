@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:messenger/api/apis.dart';
 import 'package:messenger/models/chat_user_model.dart';
+import 'package:messenger/screens/profile_screen.dart';
 import 'package:messenger/theme/colors_theme.dart';
 import 'package:messenger/theme/typography_theme.dart';
 import 'package:messenger/widgets/avatar_widget.dart';
@@ -53,10 +54,7 @@ class SlideFriendsWidget extends StatelessWidget {
             );
           }
 
-          return SlideFriendItem(
-            title: filteredList[index - 1].firstName,
-            imageUrl: filteredList[index - 1].avatar,
-          );
+          return SlideFriendItem(title: filteredList[index - 1].firstName, imageUrl: filteredList[index - 1].avatar, user: filteredList[index - 1]);
         },
       ),
     );
@@ -66,7 +64,8 @@ class SlideFriendsWidget extends StatelessWidget {
 class SlideFriendItem extends StatelessWidget {
   final String imageUrl;
   final String title;
-  const SlideFriendItem({super.key, required this.imageUrl, required this.title});
+  final ChatUserModel user;
+  const SlideFriendItem({super.key, required this.imageUrl, required this.title, required this.user});
 
   void _showPopupMenu(BuildContext context, Offset tapPosition) async {
     final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
@@ -80,6 +79,9 @@ class SlideFriendItem extends StatelessWidget {
       elevation: .6,
       items: [
         PopupMenuItem(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (_) => ProfileScreen(user: user)));
+          },
           child: Text(
             "View personal page",
             style: Theme.of(context).textTheme.bodyText2,
