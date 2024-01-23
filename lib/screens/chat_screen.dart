@@ -42,6 +42,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
         //get id of only known users
         builder: (context, snapshot) {
+          print(snapshot.connectionState);
           switch (snapshot.connectionState) {
             //if data is loading
             case ConnectionState.waiting:
@@ -66,7 +67,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       case ConnectionState.active:
                       case ConnectionState.done:
                         final data = snapshot.data?.docs;
+                        
                         list = data?.map((e) => ChatUserModel.fromJson(e.data())).toList() ?? [];
+                        list.sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
 
                         if (list.isNotEmpty) {
                           return ConnectInternetUtil(
@@ -76,7 +79,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 const SearchButtonWidget(),
                                 SlideFriendsWidget(list: list),
                                 const SizedBox(height: 8),
-                                ListChatUser(list: list),
+                               ListChatUser(list: list, listDoc: data),
                               ],
                             ),
                           );
@@ -90,14 +93,14 @@ class _ChatScreenState extends State<ChatScreen> {
                                     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                                       Text(
                                         'No Active People',
-                                        style: Theme.of(context).textTheme.headline2,
+                                        style: Theme.of(context).textTheme.displayMedium,
                                       ),
                                       const SizedBox(
                                         height: 10,
                                       ),
                                       Text(
                                         'You"ll see when  others are active here. You can also invite more friends  to join Messenger.',
-                                        style: Theme.of(context).textTheme.bodyText2,
+                                        style: Theme.of(context).textTheme.bodyMedium,
                                         textAlign: TextAlign.center,
                                       ),
                                       const SizedBox(

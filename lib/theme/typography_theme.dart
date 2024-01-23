@@ -38,7 +38,7 @@ class TypographyTheme {
 
   static TextStyle heading5({
     Color color = ColorsTheme.black,
-    FontWeight fontWeight = FontWeight.w500,
+    FontWeight fontWeight = FontWeight.w600,
   }) {
     return TextStyle(color: color, fontWeight: fontWeight, fontSize: 14);
   }

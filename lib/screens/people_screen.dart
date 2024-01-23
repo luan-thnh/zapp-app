@@ -84,14 +84,14 @@ class _PeopleScreenState extends State<PeopleScreen> {
                                         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                                           Text(
                                             'No Active People',
-                                            style: Theme.of(context).textTheme.headline2,
+                                            style: Theme.of(context).textTheme.displayMedium,
                                           ),
                                           const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             'You"ll see when  others are active here. You can also invite more friends  to join Messenger.',
-                                            style: Theme.of(context).textTheme.bodyText2,
+                                            style: Theme.of(context).textTheme.bodyMedium,
                                             textAlign: TextAlign.center,
                                           ),
                                           const SizedBox(
@@ -171,7 +171,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
                                           ]),
                                           title: Text(
                                             '${item.firstName} ${item.lastName}' ?? '',
-                                            style: Theme.of(context).textTheme.bodyText2,
+                                            style: Theme.of(context).textTheme.bodyMedium,
                                           ),
                                         ),
                                       );
@@ -259,8 +259,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
                                   });
                                 },
                                 style: TextButton.styleFrom(
-                                    primary: ColorsTheme.white,
-                                    backgroundColor: ColorsTheme.primary,
+                                    foregroundColor: ColorsTheme.white, backgroundColor: ColorsTheme.primary,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16.0),
                                     ),
@@ -286,8 +285,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
                                   child: TextButton(
                                 onPressed: () {},
                                 style: TextButton.styleFrom(
-                                    primary: ColorsTheme.white,
-                                    backgroundColor: ColorsTheme.greyLight,
+                                    foregroundColor: ColorsTheme.white, backgroundColor: ColorsTheme.greyLight,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16.0),
                                     ),

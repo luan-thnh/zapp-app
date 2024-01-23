@@ -28,7 +28,7 @@ class ChatUserModel {
   late final String avatar;
   late final String description;
   late final bool isOnline;
-  late final String token;
+  late String token;
   late final String lastActive;
   late final String createdAt;
   late final String updatedAt;
@@ -65,8 +65,8 @@ class ChatUserModel {
       gender: '',
       email: user.email.toString(),
       avatar: user.photoURL.toString(),
-      description: 'Hello, My name is ABC',
-      isOnline: true,
+      description: "Hey, I'm using Zapp!",
+      isOnline: false,
       token: '',
       lastActive: time,
       createdAt: time,
@@ -75,21 +75,21 @@ class ChatUserModel {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['username'] = username;
-    _data['first_name'] = firstName;
-    _data['last_name'] = lastName;
-    _data['day_of_birth'] = dayOfBirth;
-    _data['gender'] = gender;
-    _data['email'] = email;
-    _data['avatar'] = avatar;
-    _data['description'] = description;
-    _data['is_online'] = isOnline;
-    _data['token'] = token;
-    _data['last_active'] = lastActive;
-    _data['created_at'] = createdAt;
-    _data['updated_at'] = updatedAt;
-    return _data;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['username'] = username;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['day_of_birth'] = dayOfBirth;
+    data['gender'] = gender;
+    data['email'] = email;
+    data['avatar'] = avatar;
+    data['description'] = description;
+    data['is_online'] = isOnline;
+    data['token'] = token;
+    data['last_active'] = lastActive;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    return data;
   }
 }

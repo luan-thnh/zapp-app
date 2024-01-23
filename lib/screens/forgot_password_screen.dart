@@ -141,7 +141,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     : () {
                         if (_key.currentState!.validate()) {
                           _submitEmail(context);
-                          emailController.text = '';
                         }
                       },
                 style: TextButton.styleFrom(

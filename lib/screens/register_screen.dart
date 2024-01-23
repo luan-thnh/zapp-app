@@ -46,13 +46,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     try {
       authService.signUpWithEmailAndPassword(_phoneNumberOrEmailController.text, _passwordController.text).then((user) async {
-        if (user != null) {
-          await authService.createUserEmail(_phoneNumberOrEmailController.text).then((value) {
-            Navigator.pop(context);
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const RegisterInfoScreen()));
-          });
-        }
-      }).catchError(
+        await authService.createUserEmail(_phoneNumberOrEmailController.text).then((value) {
+          Navigator.pop(context);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const RegisterInfoScreen()));
+        });
+            }).catchError(
         (error) {
           Navigator.pop(context);
           DialogsUtil.showSnackBar(context, 'Account already exists!', false);
