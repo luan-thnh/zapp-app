@@ -103,8 +103,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               SizedBox(width: 4), // Add some spacing between the icon and the text
               Text(
-                '${widget.user.dayOfBirth} ',
-                style: TextStyle(fontSize: 20),
+                '01/01/2002',
+                style: TextStyle(fontSize: 16),
               ),
             ],
           ),
@@ -120,8 +120,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               SizedBox(width: 4), // Add some spacing between the icon and the text
               Text(
-                '${widget.user.gender} ',
-                style: TextStyle(fontSize: 20),
+                'Female ',
+                style: TextStyle(fontSize: 16),
               ),
             ],
           ),
