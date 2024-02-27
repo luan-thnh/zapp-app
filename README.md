@@ -12,6 +12,7 @@ Clone a messenger app built with Flutter and Dart.
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
   - [Usage](#usage)
+  - [Screenshots](#screenshots)
   - [Contributing](#contributing)
   - [License](#license)
 
@@ -62,7 +63,20 @@ Before you begin, ensure you have Flutter and Dart installed on your machine. If
    flutter run
 ```
 
-3. Explore the app and its features.
+## Screenshots
+
+![1 Screen](assets/screenshots/16.png)
+![2 Screen](assets/screenshots/17.png)
+![3 Screen](assets/screenshots/18.png)
+![4 Screen](assets/screenshots/19.png)
+![5 Screen](assets/screenshots/20.png)
+![6 Screen](assets/screenshots/21.png)
+![7 Screen](assets/screenshots/22.png)
+![8 Screen](assets/screenshots/23.png)
+![9 Screen](assets/screenshots/25.png)
+![10 Screen](assets/screenshots/26.png)
+
+1. Explore the app and its features.
 
 ## Contributing
 
